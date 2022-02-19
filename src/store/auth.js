@@ -1,7 +1,12 @@
 import firebase from "firebase";
 
+
 export default {
   state: {
+    users: {
+      uid: '',
+      avatar: ''
+    }
   },
   mutations: {
   },
@@ -22,16 +27,16 @@ export default {
         .auth()
         .signOut()
     },
-    async register({ dispatch, commit }, { email, password, firstName, lastName, userName }) {
+    async register({ dispatch, commit }, { email, password }) {
+      console.log(email, password)
       try {
         await firebase
           .auth()
           .createUserWithEmailAndPassword(email, password)
+
         const uid = await dispatch('getUserID')
-        await firebase.database().ref(`/users/${uid}/info`).set({
-          firstName,
-          lastName,
-          userName,
+        await firebase.database().ref(`/users/${uid}/auth`).set({
+          email, password
         })
       } catch (error) {
         console.log(error)
@@ -39,6 +44,7 @@ export default {
       }
       console.log(commit)
     },
+
     getUserID() {
       const user = firebase
         .auth().currentUser
