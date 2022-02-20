@@ -3,9 +3,9 @@ import firebase from "firebase";
 
 export default {
   state: {
-    users: {
+    user: {
       uid: '',
-      avatar: ''
+      token: ''
     }
   },
   mutations: {

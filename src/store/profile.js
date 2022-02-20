@@ -5,10 +5,13 @@ export default {
   state: {
     users: {
       uid: '',
-      avatar: ''
+      profile: {}
     }
   },
   mutations: {
+    updateProfile(state, profile) {
+      state.users.profile = profile
+    }
   },
   actions: {
     async updateProfile(context, payload) {
@@ -27,6 +30,7 @@ export default {
         console.log(error)
         throw error
       }
+      context.commit('updateProfile', profile)
     },
   },
   getters: {

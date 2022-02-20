@@ -2,34 +2,33 @@
 	<base-popup :show="!!error" @close="gotIt">
 		<p>{{ serverMessage }}</p>
 	</base-popup>
-	<main class="">
-		<form @submit.prevent="signUp">
-			<h1>Sign Up</h1>
-			<input type="email" placeholder="email" v-model="email" />
-			<input type="password" placeholder="password" v-model="password" />
-			<!-- <input type="text" placeholder="First name" v-model="firstName" />
-			<input type="text" placeholder="Last Name" v-model="lastName" />
-			<input type="text" placeholder="Pick up username" v-model="userName" /> -->
-			<button type="submit">Sign Up</button>
-			<p>Уже зарегистрированы? <router-link to="/login">Войти</router-link></p>
-		</form>
+	<main class="wrapper">
+		<base-card>
+			<form @submit.prevent="signUp">
+				<h1>Sign Up</h1>
+				<input type="email" placeholder="email" v-model="email" />
+				<input type="password" placeholder="password" v-model="password" />
+				<button type="submit">Sign Up</button>
+				<p>
+					Уже зарегистрированы? <router-link to="/login">Войти</router-link>
+				</p>
+			</form>
+		</base-card>
 	</main>
 </template>
 
 <script>
 import errors from "@/messages/errors";
-import BasePopup from "../components/UI/BasePopup.vue";
+import BasePopup from "@/components/UI/BasePopup.vue";
+import BaseCard from "@/components/UI/BaseCard.vue";
 
 export default {
-	components: { BasePopup },
+	components: { BasePopup, BaseCard },
 	name: "SignUp",
 	data() {
 		return {
 			email: "",
 			password: "",
-			// firstName: "",
-			// lastName: "",
-			// userName: "",
 			serverMessage: "",
 			error: null,
 		};
@@ -39,9 +38,6 @@ export default {
 			const authData = {
 				email: this.email,
 				password: this.password,
-				// firstName: this.firstName,
-				// lastName: this.lastName,
-				// userName: this.userName,
 			};
 			try {
 				await this.$store.dispatch("register", authData);
@@ -62,5 +58,12 @@ export default {
 .popup {
 	padding: 20px;
 	background-color: #f0caca;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
 }
 </style>

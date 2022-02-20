@@ -2,8 +2,18 @@
 	<base-popup :show="!!error" @close="gotIt">
 		<p>{{ serverMessage }}</p>
 	</base-popup>
-	<div class="">
+	<main class="profile">
 		<h1>Profile</h1>
+		<div class="profile__top">
+			<div class="profile__img">
+				<img src="" alt="" width="150" />
+			</div>
+			<div class="profile__info">
+				<p></p>
+				<p></p>
+				<p></p>
+			</div>
+		</div>
 		<form @submit.prevent="updateProfile">
 			<img :src="imageUrl" alt="Avatar" width="100" />
 			<!-- <button type="button" @click="onPickFile">Avatar</button> -->
@@ -18,7 +28,7 @@
 			/>
 			<button type="submit">Сохранить</button>
 		</form>
-	</div>
+	</main>
 </template>
 
 <script>
