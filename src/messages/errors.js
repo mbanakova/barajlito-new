@@ -1,5 +1,7 @@
 export default {
-  'auth/email-already-in-use': 'Данный почтовый адрес уже зарегистрирован',
-  'auth/wrong-password': 'Неверный пароль',
-  'auth/user-not-found': 'Аккаунт не зарегистрирован',
+  'EMAIL_EXISTS': 'Данный почтовый адрес уже зарегистрирован',
+  'INVALID_PASSWORD': 'Неверный пароль',
+  'EMAIL_NOT_FOUND': 'Аккаунт не зарегистрирован',
+  'MISSING_EMAIL': 'Введите корректный почтовый адрес',
+  'WEAK_PASSWORD': 'Пароль должен содержать не менее 6 символов',
 }

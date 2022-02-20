@@ -1,5 +1,5 @@
 <template>
-	<div class="">
+	<main class="wrapper">
 		<h1>Requests</h1>
-	</div>
+	</main>
 </template>

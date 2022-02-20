@@ -4,7 +4,7 @@ import profile from './profile'
 
 export default createStore({
   state: {
-    error: null,
+    error: null
   },
   mutations: {
     setError(state, error) {

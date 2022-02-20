@@ -13,7 +13,7 @@ export default {
 	methods: {
 		async logout() {
 			await this.$store.dispatch("logout");
-			this.$router.push("/login?message=logout");
+			this.$router.push("/auth");
 		},
 	},
 };

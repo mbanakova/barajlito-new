@@ -2,7 +2,7 @@
 	<base-popup :show="!!error" @close="gotIt">
 		<p>{{ serverMessage }}</p>
 	</base-popup>
-	<main class="profile">
+	<main class="profile wrapper">
 		<h1>Profile</h1>
 		<div class="profile__top">
 			<div class="profile__img">

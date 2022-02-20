@@ -1,5 +1,5 @@
 <template>
-	<div class="">
+	<main class="wrapper">
 		<h1>My offers</h1>
-	</div>
+	</main>
 </template>

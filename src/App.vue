@@ -1,12 +1,30 @@
 <template>
 	<TheHeader />
 	<router-view />
+	<TheFooter />
 </template>
 
 <script>
 import TheHeader from "@/components/TheHeader";
+import TheFooter from "@/components/TheFooter";
+
 export default {
-	components: { TheHeader },
+	components: { TheHeader, TheFooter },
+	computed: {
+		didAutoLogout() {
+			return this.$store.getters.didAutoLogout;
+		},
+	},
+	created() {
+		this.$store.dispatch("tryLogin");
+	},
+	watch: {
+		didAutoLogout(curValue, oldValue) {
+			if (curValue && curValue !== oldValue) {
+				this.$router.replace("/auth");
+			}
+		},
+	},
 };
 </script>
 
@@ -30,7 +48,7 @@ body {
 	line-height: 20px;
 }
 
-.main {
+#app {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
