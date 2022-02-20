@@ -1,21 +1,23 @@
 <template>
 	<teleport to="body">
 		<div v-if="show" @click="tryClose" class="backdrop"></div>
-		<dialog open v-if="show">
-			<header class="standard">
-				<slot name="header">
-					<h2>{{ title }}</h2>
-				</slot>
-			</header>
-			<section>
-				<slot></slot>
-			</section>
-			<menu v-if="!fixed">
-				<slot name="actions">
-					<base-button @click="tryClose" class="standard">ok</base-button>
-				</slot>
-			</menu>
-		</dialog>
+		<transition name="popup">
+			<dialog open v-if="show">
+				<header class="standard">
+					<slot name="header">
+						<h2>{{ title }}</h2>
+					</slot>
+				</header>
+				<section>
+					<slot></slot>
+				</section>
+				<menu v-if="!fixed">
+					<slot name="actions">
+						<base-button @click="tryClose" class="standard">ok</base-button>
+					</slot>
+				</menu>
+			</dialog>
+		</transition>
 	</teleport>
 </template>
 
@@ -48,7 +50,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .backdrop {
 	position: fixed;
 	top: 0;
@@ -73,6 +75,10 @@ dialog {
 	margin: 0;
 	overflow: hidden;
 	background-color: white;
+
+	@media (min-width: 768px) {
+		width: 40rem;
+	}
 }
 
 header {
@@ -103,9 +109,23 @@ menu {
 	margin: 0;
 }
 
-@media (min-width: 768px) {
-	dialog {
-		width: 40rem;
-	}
+.popup-enter-from,
+.popup-leave-to {
+	opacity: 0;
+	transform: translateX(-50%) scale(0.8);
+}
+
+.popup-enter-active {
+	transition: all 0.3s ease-out;
+}
+
+.popup-leave-active {
+	transition: all 0.3s ease-in;
+}
+
+.popup-enter-to,
+.popup-leave-from {
+	opacity: 1;
+	transform: translateX(-50%) scale(1);
 }
 </style>

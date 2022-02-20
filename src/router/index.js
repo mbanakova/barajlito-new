@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import store from '../store/index.js'
 import Home from '../views/Home.vue'
 import MyOffers from '../views/MyOffers'
+import Offers from '../views/Offers'
+import OfferDetail from '../views/OfferDetail'
 import NewOffer from '../views/NewOffer'
 import Requests from '../views/Requests'
 import Profile from '../views/Profile'
@@ -15,6 +17,18 @@ const router = createRouter({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/offers',
+      name: 'Offers',
+      component: Offers,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/offers/:id',
+      name: 'OfferDetail',
+      component: OfferDetail,
+      meta: { requiresAuth: true }
     },
     {
       path: '/my-offers',

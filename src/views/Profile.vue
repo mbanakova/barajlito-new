@@ -1,8 +1,8 @@
 <template>
-	<base-popup :show="!!error" @close="gotIt">
-		<p>{{ serverMessage }}</p>
-	</base-popup>
 	<main class="profile wrapper">
+		<base-popup :show="!!error" @close="gotIt">
+			<p>{{ serverMessage }}</p>
+		</base-popup>
 		<h1>Profile</h1>
 		<div class="profile__top">
 			<div class="profile__img">

@@ -3,7 +3,7 @@
 		<div class="wrapper footer-wrapper">
 			<div class="copyright">© mbanakova, {{ year }}</div>
 			<div class="framework">
-				build on<span class="framework__logo">Vue.js</span>
+				build with<span class="framework__logo">Vue.js</span>
 			</div>
 		</div>
 	</footer>

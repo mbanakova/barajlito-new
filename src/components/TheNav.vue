@@ -1,5 +1,6 @@
 <template>
 	<nav class="nav">
+		<router-link to="/offers">Все объявления</router-link>
 		<router-link to="/my-offers">Мои объявления</router-link>
 		<router-link to="/new-offer">Создать</router-link>
 		<router-link to="/requests">Входящие</router-link>
@@ -45,7 +46,8 @@ a {
 	}
 
 	&:hover,
-	&:active {
+	&:active,
+	&.router-link-active {
 		border: 1px solid #94ddff;
 	}
 }

@@ -120,7 +120,7 @@ export default {
   },
   getters: {
     userId(state) {
-      return state.uid;
+      return state.user.uid;
     },
     token(state) {
       return state.user.token

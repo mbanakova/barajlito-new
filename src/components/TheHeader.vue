@@ -34,7 +34,8 @@ a {
 	transition: all 0.3s ease-in-out;
 
 	&:hover,
-	&:active {
+	&:active,
+	&.router-link-active {
 		border: 1px solid #94ddff;
 	}
 }

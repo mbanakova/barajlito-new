@@ -1,17 +1,20 @@
 <template>
-	<base-popup :show="!!error" @close="gotIt" title="Ошибка доступа">
-		<p>{{ serverMessage }}</p>
-	</base-popup>
-	<base-popup :show="isLoading" title="Authenticating..." fixed>
-		<base-spinner></base-spinner>
-	</base-popup>
 	<main class="wrapper">
+		<base-popup :show="!!error" @close="gotIt" title="Ошибка доступа">
+			<p>{{ serverMessage }}</p>
+		</base-popup>
+		<base-popup :show="isLoading" title="Authenticating..." fixed>
+			<base-spinner></base-spinner>
+		</base-popup>
+
 		<base-card>
 			<form @submit.prevent="auth">
 				<h1>Auth</h1>
 				<input type="email" placeholder="email" v-model="email" />
 				<input type="password" placeholder="password" v-model="password" />
-				<button type="submit">{{ submitButtonName }}</button>
+				<button type="submit" class="base-button base-button--bright">
+					{{ submitButtonName }}
+				</button>
 				<p>
 					{{ switchText }}
 					<button type="button" @click="switchAuthMode">
