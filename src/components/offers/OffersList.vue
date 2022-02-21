@@ -67,9 +67,9 @@ export default {
 		};
 	},
 
-	// created() {
-	// 	this.loadOffers();
-	// },
+	created() {
+		this.loadOffers();
+	},
 
 	computed: {
 		...mapGetters({
@@ -78,17 +78,15 @@ export default {
 		}),
 	},
 	methods: {
-		// async loadOffers(refresh = false) {
-		// 	this.isLoading = true;
-		// 	try {
-		// 		await this.$store.dispatch("loadOffers", {
-		// 			forceRefresh: refresh,
-		// 		});
-		// 	} catch (error) {
-		// 		this.error = error.message || "Something went wrong!";
-		// 	}
-		// 	this.isLoading = false;
-		// },
+		async loadOffers(refresh = false) {
+			this.isLoading = true;
+			try {
+				await this.$store.dispatch("fetchOffers", { forceRefresh: refresh });
+			} catch (error) {
+				this.error = error.message || "Something went wrong!";
+			}
+			this.isLoading = false;
+		},
 	},
 };
 </script>

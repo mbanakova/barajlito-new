@@ -1,8 +1,9 @@
 // import firebase from "firebase";
 
-
+const token = localStorage.getItem('token');
 export default {
   state: {
+    lastFetch: null,
     offers: [
       {
         id: 'c1',
@@ -37,57 +38,71 @@ export default {
     ]
   },
   actions: {
-    // async loadOffers(context, payload) {
-    //   if (!payload.forceRefresh && !context.getters.shouldUpdate) {
-    //     return;
-    //   }
-    //   const token = localStorage.getItem('token');
-    //   const response = await fetch(`https://barahlito-bc730-default-rtdb.firebaseio.com/offers.json?auth=${token}`);
-
-    //   const responseData = await response.json();
-
-    //   if (!response.ok) {
-    //     const error = new Error(responseData.message || 'Failed to fetch!');
-    //     throw error;
-    //   }
-
-    //   const offers = [];
-
-    //   for (const key in responseData) {
-    //     const offer = {
-    //       id: key,
-    //       user: responseData[key].user,
-    //       date: responseData[key].date,
-    //       title: responseData[key].title,
-    //       thumbnail: responseData[key].thumbnail,
-    //       description: responseData[key].description,
-    //       price: responseData[key].price,
-    //       areas: responseData[key].areas,
-    //     }
-    //     offers.push(offer)
-    //   }
-
-    //   // данные для OffersList.vue, обновляют список из firebase
-    //   context.commit('setOffers', offers)
-    //   context.commit('setFetchTimestamp')
-    // }
-    registerOffer(context, formData) {
+    async registerOffer(context, formData) {
       const offerData = {
-        id: new Date().toISOString(),
         uid: formData.uid,
         date: formData.date,
-        // owner: formData.,
         title: formData.title,
         description: formData.description,
         price: formData.price,
       }
 
-      context.commit('registerOffer', offerData)
+      const response = await fetch(`https://barahlito-new-default-rtdb.firebaseio.com/offers.json?auth=${token}`, {
+        method: 'POST',
+        body: JSON.stringify({
+          ...offerData
+        })
+      })
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        const error = new Error(responseData.message);
+        throw error;
+      }
+
+      context.commit('registerOffer', {
+        ...offerData
+      })
+    },
+    async fetchOffers(context, payload) {
+
+      if (!payload.forceRefresh && !context.getters.shouldUpdate) {
+        return;
+      }
+
+      const response = await fetch(`https://barahlito-new-default-rtdb.firebaseio.com/offers.json?auth=${token}`);
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        const error = new Error(responseData.message);
+        throw error;
+      }
+
+      const offers = [];
+
+      for (const key in responseData) {
+        const offer = {
+          id: key,
+          uid: responseData[key].uid,
+          date: responseData[key].date,
+          title: responseData[key].title,
+          description: responseData[key].description,
+          price: responseData[key].price
+        }
+        offers.unshift(offer)
+      }
+
+      // данные для OffersList.vue, обновляют список из firebase
+      context.commit('setOffers', offers)
     }
   },
   mutations: {
     registerOffer(state, payload) {
-      state.offers.unshift(payload)
+      state.offers.unshift(payload);
+    },
+    setOffers(state, fetchedOffers) {
+      state.offers = fetchedOffers;
     }
   },
   getters: {
@@ -97,10 +112,10 @@ export default {
     hasOffers(state) {
       return (state.offers && state.offers.length > 0);
     },
-    isOffer(_, getters, _2, rootGetters) {
+    myOffers(_, getters) {
       const offers = getters.offers;
-      const userId = rootGetters.userId;
-      return offers.some(offer => offer.id === userId)
+      const userId = getters.userId;
+      return offers.some(offer => offer.uid === userId)
     },
     shouldUpdate(state) {
       const lastFetch = state.lastFetch;

@@ -81,7 +81,7 @@ export default {
 				this.formIsValid = false;
 			}
 		},
-		submitForm() {
+		async submitForm() {
 			this.validateForm();
 
 			if (!this.formIsValid) {
@@ -98,6 +98,7 @@ export default {
 			};
 			console.log("OfferForm data: ", formData);
 			this.$emit("save-data", formData);
+			await this.$store.commit("registerOffer", formData);
 		},
 	},
 };

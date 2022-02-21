@@ -19,22 +19,37 @@
 					:badgeTitle="area"
 				></base-badge>
 			</div> -->
-			<router-link :to="offerDetailsLink" class="post-cta"
-				>Подробнее</router-link
-			>
+			<div class="links">
+				<router-link :to="offerDetailsLink" class="base-button"
+					>Подробнее</router-link
+				>
+				<router-link
+					to="/new-offer"
+					class="base-button base-button--bright"
+					v-if="isAuthor"
+					>✏️</router-link
+				>
+			</div>
 		</div>
 	</base-card>
 </template>
 
 <script>
 import BaseCard from "@/components/UI/BaseCard";
+
 export default {
 	components: { BaseCard },
+	emits: ["my-offers"],
 	props: ["id", "uid", "owner", "date", "title", "rate", "description"],
-	data() {},
+	data() {
+		return {};
+	},
 	computed: {
 		offerDetailsLink() {
 			return "/offers/" + this.id; //offers/c1
+		},
+		isAuthor() {
+			return this.uid === this.$store.getters["userId"];
 		},
 	},
 };
@@ -46,11 +61,6 @@ export default {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-}
-
-a {
-	text-decoration: none;
-	color: black;
 }
 
 /* .post-thumbnail {
@@ -124,44 +134,9 @@ a {
 	border-radius: 10px;
 }
 
-.post-cta {
-	margin-top: auto;
-	grid-area: cta;
-	display: block;
-	background-image: repeating-linear-gradient(
-		-60deg,
-		#1d6d92,
-		#1d6d92 10px,
-		#275a81 10px,
-		#275a81 20px
-	);
-	color: white;
-	border-radius: 10px;
-	padding: 10px 25px;
-	font-weight: 500;
-	text-align: center;
-	position: relative;
-	transition: all 0.3s ease-in-out;
-}
-.post-cta::after {
-	position: absolute;
-	content: "»";
-	top: 9px;
-	right: 1em;
-	width: 10px;
-	height: 10px;
-	transition: all 0.3s ease-in-out;
-	opacity: 0;
-}
-
-.post-cta:hover,
-.post-cta:active {
-	padding: 10px 35px 10px 15px;
-}
-
-.post-cta:hover::after,
-.post-cta:active::after {
-	opacity: 1;
-	right: 1.4em;
+.links {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 </style>
