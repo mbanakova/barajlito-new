@@ -1,12 +1,12 @@
 <template>
 	<div>
-		<base-dialog
+		<base-popup
 			:show="!!error"
 			title="Данные не подгрузились"
 			@close="handleError"
 		>
 			<p>{{ error }}</p>
-		</base-dialog>
+		</base-popup>
 		<div class="list-page">
 			<div v-if="isLoading">
 				<base-spinner></base-spinner>
