@@ -7,6 +7,7 @@ import BaseButton from './components/UI/BaseButton'
 import BaseCard from './components/UI/BaseCard'
 import BaseSpinner from './components/UI/BaseSpinner'
 import BaseBadge from './components/UI/BaseBadge'
+import FontAwesome from "./assets/fontawesome";
 
 import firebase from "firebase/app";
 
@@ -26,6 +27,7 @@ const app = createApp(App)
 app.use(store)
 app.use(router)
 
+app.component('font-awesome', FontAwesome)
 app.component('base-popup', BasePopup)
 app.component('base-button', BaseButton)
 app.component('base-spinner', BaseSpinner)

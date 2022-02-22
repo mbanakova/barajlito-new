@@ -1,4 +1,4 @@
-import firebase from "firebase";
+// import firebase from "firebase";
 const API_KEY = 'AIzaSyAifkgZ7dSMH29s0Fln77zehXTqvkHQaro';
 let timer;
 
@@ -102,11 +102,11 @@ export default {
       context.dispatch('logout')
       context.commit('autoLogout')
     },
-    getUserID() {
-      const user = firebase
-        .auth().currentUser
-      return user ? user.uid : null
-    }
+    // getUserID() {
+    //   const user = firebase
+    //     .auth().currentUser
+    //   return user ? user.uid : null
+    // }
   },
   mutations: {
     setUser(state, payload) {

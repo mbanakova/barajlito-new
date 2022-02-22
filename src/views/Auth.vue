@@ -29,10 +29,9 @@
 <script>
 import errors from "@/messages/errors";
 import BasePopup from "@/components/UI/BasePopup.vue";
-import BaseCard from "@/components/UI/BaseCard.vue";
 
 export default {
-	components: { BasePopup, BaseCard },
+	components: { BasePopup },
 	name: "Auth",
 	data() {
 		return {

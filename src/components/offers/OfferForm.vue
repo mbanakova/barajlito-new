@@ -120,45 +120,4 @@ input[type="checkbox"] + label {
 	display: inline;
 	margin: 0 0 0 0.5rem;
 }
-
-input,
-textarea {
-	display: block;
-	width: 100%;
-	border: 1px solid #ccc;
-	font: inherit;
-	resize: vertical;
-	padding: 5px 10px;
-}
-
-input:focus,
-textarea:focus {
-	background-color: #ebf6ff;
-	outline: none;
-	border-color: #275a81;
-}
-
-input[type="checkbox"] {
-	display: inline;
-	width: auto;
-	border: none;
-}
-
-input[type="checkbox"]:focus {
-	outline: #275a81 solid 1px;
-}
-
-h3 {
-	margin: 0.5rem 0;
-	font-size: 1rem;
-}
-
-.invalid label {
-	color: #f74d4d;
-}
-
-.invalid input,
-.invalid textarea {
-	border: 1px solid #f74d4d;
-}
 </style>

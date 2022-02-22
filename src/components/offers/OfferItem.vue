@@ -35,10 +35,7 @@
 </template>
 
 <script>
-import BaseCard from "@/components/UI/BaseCard";
-
 export default {
-	components: { BaseCard },
 	emits: ["my-offers"],
 	props: ["id", "uid", "owner", "date", "title", "rate", "description"],
 	data() {

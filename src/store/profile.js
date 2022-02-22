@@ -1,4 +1,4 @@
-import firebase from "firebase";
+
 const token = localStorage.getItem('token');
 const uid = localStorage.getItem('uid');
 
@@ -15,18 +15,21 @@ export default {
       const profile = {
         firstName: payload.firstName,
         lastName: payload.lastName,
-        userName: payload.userName,
-        imageUrl: payload.imageUrl,
+        userName: payload.userName
       }
-      try {
-
-        await firebase.database().ref(`/users/${uid}/info`).set({
+      const response = await fetch(`https://barahlito-new-default-rtdb.firebaseio.com/users/${uid}/info.json?auth=${token}`, {
+        method: 'PUT',
+        body: JSON.stringify({
           ...profile
         })
-      } catch (error) {
-        console.log(error)
-        throw error
+      })
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        const error = new Error(responseData.message);
+        throw error;
       }
+
       context.commit('updateProfile', profile)
     },
     async fetchProfile(context) {
@@ -43,7 +46,6 @@ export default {
         email: responseData.auth.email,
         password: responseData.auth.password,
         firstName: responseData.info.firstName,
-        imageUrl: responseData.info.imageUrl,
         lastName: responseData.info.lastName,
         userName: responseData.info.userName,
       }
@@ -62,6 +64,7 @@ export default {
   getters: {
     profileUserData(state) {
       return state.users.profile;
-    }
+    },
+
   }
 }
