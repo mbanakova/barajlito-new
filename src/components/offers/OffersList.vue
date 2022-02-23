@@ -34,7 +34,7 @@
 							class="base-button base-button--bright"
 							@click="loadOffers(true)"
 						>
-							Refresh
+							<font-awesome icon="sync-alt" />
 						</button>
 						<base-button
 							mode="standard"

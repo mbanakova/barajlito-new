@@ -102,8 +102,7 @@ body {
 	cursor: pointer;
 	border-radius: 10px;
 	font-weight: 500;
-	padding: 10px 40px;
-	margin-right: 0.5rem;
+	padding: 10px 20px;
 	display: inline-block;
 	transition: all 0.3s ease-in-out;
 	position: relative;
@@ -124,12 +123,12 @@ body {
 .base-button:hover::after,
 .base-button:active::after {
 	opacity: 1;
-	right: 1.2em;
+	right: 10px;
 }
 
 .base-button:hover,
 .base-button:active {
-	padding: 10px 50px 10px 30px;
+	padding: 10px 30px 10px 10px;
 }
 
 .base-button--bright {

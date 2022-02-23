@@ -112,10 +112,9 @@ export default {
     hasOffers(state) {
       return (state.offers && state.offers.length > 0);
     },
-    myOffers(_, getters) {
-      const offers = getters.offers;
+    myOffers(state, getters) {
       const userId = getters.userId;
-      return offers.some(offer => offer.uid === userId)
+      return state.offers.filter(offer => offer.uid === userId)
     },
     shouldUpdate(state) {
       const lastFetch = state.lastFetch;

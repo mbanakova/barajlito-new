@@ -27,8 +27,8 @@
 					to="/new-offer"
 					class="base-button base-button--bright"
 					v-if="isAuthor"
-					>✏️</router-link
-				>
+					><font-awesome icon="edit"
+				/></router-link>
 			</div>
 		</div>
 	</base-card>
@@ -82,7 +82,7 @@ export default {
 		"title title"
 		"description description"
 		"tags tags"
-		"cta .";
+		"links links";
 }
 
 .post-date {
@@ -132,6 +132,7 @@ export default {
 }
 
 .links {
+	grid-area: links;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
