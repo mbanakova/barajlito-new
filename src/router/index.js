@@ -5,6 +5,7 @@ import MyOffers from '../views/MyOffers'
 import Offers from '../views/Offers'
 import OfferDetail from '../views/OfferDetail'
 import NewOffer from '../views/NewOffer'
+import EditOffer from '../views/EditOffer'
 import Requests from '../views/Requests'
 import Profile from '../views/Profile'
 import Auth from '../views/Auth'
@@ -34,6 +35,12 @@ const router = createRouter({
       path: '/my-offers',
       name: 'MyOffers',
       component: MyOffers,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/edit/:id',
+      name: 'EditOffer',
+      component: EditOffer,
       meta: { requiresAuth: true }
     },
     {

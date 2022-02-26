@@ -7,7 +7,8 @@ export default {
     user: {
       uid: null,
       token: null,
-      didAutoLogout: false
+      didAutoLogout: false,
+      isLoggedIn: false,
     }
   },
   actions: {
@@ -113,9 +114,11 @@ export default {
       state.user.uid = payload.uid;
       state.user.token = payload.token;
       state.user.didAutoLogout = false;
+      state.user.isLoggedIn = true;
     },
     autoLogout(state) {
       state.user.didAutoLogout = true;
+      state.user.isLoggedIn = false;
     }
   },
   getters: {
@@ -127,6 +130,9 @@ export default {
     },
     isAuthenticated(state) {
       return !!state.user.token
+    },
+    isLoggedIn(state) {
+      return !!state.user.isLoggedIn
     },
     didAutoLogout(state) {
       return state.user.didAutoLogout

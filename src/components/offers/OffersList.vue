@@ -1,10 +1,6 @@
 <template>
 	<div>
-		<base-popup
-			:show="!!error"
-			title="Данные не подгрузились"
-			@close="handleError"
-		>
+		<base-popup :show="!!error" title="Данные не подгрузились" @close="gotIt">
 			<p>{{ error }}</p>
 		</base-popup>
 		<div class="list-page">
@@ -64,6 +60,7 @@ export default {
 	data() {
 		return {
 			isLoading: false,
+			error: null,
 		};
 	},
 
@@ -75,6 +72,7 @@ export default {
 		...mapGetters({
 			filteredOffers: ["offers"],
 			hasOffers: ["hasOffers"],
+			isLoggedIn: ["isLoggedIn"],
 		}),
 	},
 	methods: {
@@ -83,9 +81,12 @@ export default {
 			try {
 				await this.$store.dispatch("fetchOffers", { forceRefresh: refresh });
 			} catch (error) {
-				this.error = error.message || "Something went wrong!";
+				this.error = error.message;
 			}
 			this.isLoading = false;
+		},
+		gotIt() {
+			this.error = null;
 		},
 	},
 };

@@ -23,10 +23,7 @@
 				<router-link :to="offerDetailsLink" class="base-button"
 					>Подробнее</router-link
 				>
-				<router-link
-					to="/new-offer"
-					class="base-button base-button--bright"
-					v-if="isAuthor"
+				<router-link :to="editOffer" class="edit" v-if="isAuthor"
 					><font-awesome icon="edit"
 				/></router-link>
 			</div>
@@ -39,7 +36,9 @@ export default {
 	emits: ["my-offers"],
 	props: ["id", "uid", "owner", "date", "title", "rate", "description"],
 	data() {
-		return {};
+		return {
+			editOffer: "/edit/" + this.id,
+		};
 	},
 	computed: {
 		offerDetailsLink() {
@@ -52,7 +51,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .post-card {
 	overflow: hidden;
 	height: 100%;
@@ -136,5 +135,29 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+
+.edit {
+	background-image: repeating-linear-gradient(
+		-60deg,
+		#8b0aa5,
+		#8b0aa5 10px,
+		#6e075d 10px,
+		#6e075d 20px
+	);
+	border: 2px solid #6e075d;
+	color: white;
+	cursor: pointer;
+	border-radius: 10px;
+	font-weight: 500;
+	padding: 10px 20px;
+	display: inline-block;
+	transition: all 0.3s ease-in-out;
+	position: relative;
+	text-align: center;
+
+	& svg {
+		fill: white;
+	}
 }
 </style>

@@ -64,6 +64,32 @@ export default {
         ...offerData
       })
     },
+    async editOffer(context, formData) {
+      const offerData = {
+        uid: formData.uid,
+        date: formData.date,
+        title: formData.title,
+        description: formData.description,
+        price: formData.price,
+      }
+
+      const response = await fetch(`https://barahlito-new-default-rtdb.firebaseio.com/offers/${formData.offerId}.json?auth=${token}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          ...offerData
+        })
+      })
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        const error = new Error(responseData.message);
+        throw error;
+      }
+
+      context.commit('updateOffer', {
+        ...offerData
+      })
+    },
     async fetchOffers(context, payload) {
 
       if (!payload.forceRefresh && !context.getters.shouldUpdate) {
@@ -99,6 +125,9 @@ export default {
   },
   mutations: {
     registerOffer(state, payload) {
+      state.offers.unshift(payload);
+    },
+    updateOffer(state, payload) {
       state.offers.unshift(payload);
     },
     setOffers(state, fetchedOffers) {

@@ -2,11 +2,7 @@
 	<main class="wrapper">
 		<h1>My offers</h1>
 
-		<base-popup
-			:show="!!error"
-			title="Данные не подгрузились"
-			@close="handleError"
-		>
+		<base-popup :show="!!error" title="Данные не подгрузились" @close="gotIt">
 			<p>{{ error }}</p>
 		</base-popup>
 		<div class="list-page">
@@ -81,6 +77,7 @@ export default {
 		...mapGetters({
 			myOffers: ["myOffers"],
 			hasOffers: ["hasOffers"],
+			isLoggedIn: ["isLoggedIn"],
 		}),
 	},
 	methods: {
@@ -94,6 +91,9 @@ export default {
 				this.error = error.message || "Something went wrong!";
 			}
 			this.isLoading = false;
+		},
+		gotIt() {
+			this.error = null;
 		},
 	},
 };

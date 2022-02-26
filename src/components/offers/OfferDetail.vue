@@ -51,9 +51,9 @@ export default {
 		owner() {
 			return this.selectedOffer.owner;
 		},
-		thumbnail() {
-			return this.selectedOffer.thumbnail;
-		},
+		// thumbnail() {
+		// 	return this.selectedOffer.thumbnail;
+		// },
 		areas() {
 			return this.selectedOffer.areas;
 		},
