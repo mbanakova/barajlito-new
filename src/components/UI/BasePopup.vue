@@ -50,7 +50,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .backdrop {
 	position: fixed;
 	top: 0;

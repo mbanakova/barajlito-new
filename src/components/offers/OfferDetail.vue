@@ -19,12 +19,13 @@
 		<section class="offer__chat">
 			<base-card>
 				<header>
-					<h2>Intrested? Contact the owner!</h2>
-					<base-button link :to="contactLink" mode="bright"
-						>Contact</base-button
-					>
+					<h2>Написать владельцу:</h2>
+					<form>
+						<input type="email" name="email" id="email" />
+						<textarea name="message" id="message" rows="5"></textarea>
+						<base-button mode="bright" class="submit">Отправить</base-button>
+					</form>
 				</header>
-				<contact-offer></contact-offer>
 			</base-card>
 		</section>
 	</div>
@@ -75,7 +76,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .offer__page {
 	display: grid;
 	grid-template-columns: 2fr 3fr;
@@ -113,5 +114,34 @@ export default {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
+}
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+label {
+	font-weight: bold;
+	display: block;
+	margin-bottom: 0.5rem;
+}
+
+input[type="checkbox"] + label {
+	font-weight: normal;
+	display: inline;
+	margin: 0 0 0 0.5rem;
+}
+
+.invalid {
+	border-color: $med-accent;
+}
+
+p {
+	margin: 0;
+}
+
+.submit {
+	align-self: flex-start;
 }
 </style>

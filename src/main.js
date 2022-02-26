@@ -8,7 +8,7 @@ import BaseCard from './components/UI/BaseCard'
 import BaseSpinner from './components/UI/BaseSpinner'
 import BaseBadge from './components/UI/BaseBadge'
 import FontAwesome from "./assets/fontawesome";
-
+// import './assets/global.scss';
 import firebase from "firebase/app";
 
 const firebaseConfig = {

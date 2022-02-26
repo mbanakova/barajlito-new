@@ -17,7 +17,7 @@
 	</div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .spinner {
 	display: flex;
 	justify-content: center;
@@ -39,11 +39,11 @@
 	animation: lds-default 1.2s linear infinite;
 
 	&:nth-child(2n) {
-		background: #275a81;
+		background: $bright;
 	}
 
 	&:nth-child(3n) {
-		background: #f74d4d;
+		background: $med-accent;
 	}
 
 	&:nth-child(1) {

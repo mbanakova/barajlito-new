@@ -94,7 +94,7 @@ export default {
 .item-price {
 	grid-area: price;
 	text-align: right;
-	color: #275a81;
+	color: $bright;
 	font-weight: 700;
 }
 .post-title {
@@ -138,14 +138,22 @@ export default {
 }
 
 .edit {
+	// background-image: repeating-linear-gradient(
+	// 	-60deg,
+	// 	#216274,
+	// 	#216274 10px,
+	// 	#094555 10px,
+	// 	#094555 20px
+	// );
+	// border: 2px solid #094555;
 	background-image: repeating-linear-gradient(
 		-60deg,
-		#8b0aa5,
-		#8b0aa5 10px,
-		#6e075d 10px,
-		#6e075d 20px
+		#995905,
+		#995905 10px,
+		#633a05 10px,
+		#633a05 20px
 	);
-	border: 2px solid #6e075d;
+	border: 2px solid #633a05;
 	color: white;
 	cursor: pointer;
 	border-radius: 10px;

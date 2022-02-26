@@ -1,30 +1,30 @@
 <template>
-  <span class="badge" :class="type">#{{ badgeTitle }}</span>
+	<span class="badge" :class="type">#{{ badgeTitle }}</span>
 </template>
 
 <script>
 export default {
-  props: ["type", "badgeTitle"],
-  computed: {
-    text() {
-      return this.badgeTitle.toUppercase();
-    },
-  },
+	props: ["type", "badgeTitle"],
+	computed: {
+		text() {
+			return this.badgeTitle.toUppercase();
+		},
+	},
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .badge {
-  background-color: #e2e2e2;
-  padding: 1px 10px;
-  font-weight: 700;
-  font-size: 12px;
-  border-radius: 4px;
+	background-color: #e2e2e2;
+	padding: 1px 10px;
+	font-weight: 700;
+	font-size: 12px;
+	border-radius: 4px;
 }
 /* 
 .apparel {
-  border-color: #275a81;
-  color: #275a81;
+  border-color: $bright;
+  color: $bright;
 }
 
 .home {

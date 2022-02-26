@@ -94,7 +94,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .profile {
 	display: grid;
 	grid-template-areas:
@@ -128,10 +128,10 @@ export default {
 .profile__img {
 	width: 80px;
 	height: 80px;
-	background-color: #213d52;
+	background-color: $blue;
 	border-radius: 6px;
 	border: 3px solid white;
-	outline: 2px solid #213d52;
+	outline: 2px solid $blue;
 	display: flex;
 	justify-content: center;
 	align-items: center;

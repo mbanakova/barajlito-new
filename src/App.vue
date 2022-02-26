@@ -33,6 +33,7 @@ export default {
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+// $dark: #030105;
 
 *,
 *::before,
@@ -92,13 +93,14 @@ body {
 	font: inherit;
 	background-image: repeating-linear-gradient(
 		-60deg,
-		#1d6d92,
-		#1d6d92 10px,
-		#275a81 10px,
-		#275a81 20px
+		$blue,
+		$blue 10px,
+		$navy 10px,
+		$navy 20px
 	);
-	border: 2px solid #1d6d92;
-	color: white;
+
+	border: 2px solid $navy;
+	color: $white;
 	cursor: pointer;
 	border-radius: 10px;
 	font-weight: 500;
@@ -134,12 +136,12 @@ body {
 .base-button--bright {
 	background-image: repeating-linear-gradient(
 		-60deg,
-		#f74d4d,
-		#f74d4d 10px,
-		#c00808 10px,
-		#c00808 20px
+		$med-accent,
+		$med-accent 10px,
+		$dark-accent 10px,
+		$dark-accent 20px
 	);
-	border: 2px solid #c00808;
+	border: 2px solid $dark-accent;
 }
 input,
 textarea {
@@ -154,9 +156,9 @@ textarea {
 
 input:focus,
 textarea:focus {
-	background-color: #ebf6ff;
+	background-color: $light;
 	outline: none;
-	border-color: #275a81;
+	border-color: $bright;
 }
 
 input[type="checkbox"] {
@@ -166,7 +168,7 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:focus {
-	outline: #275a81 solid 1px;
+	outline: $bright solid 1px;
 }
 
 h3 {
@@ -175,11 +177,11 @@ h3 {
 }
 
 .invalid label {
-	color: #f74d4d;
+	color: $med-accent;
 }
 
 .invalid input,
 .invalid textarea {
-	border: 1px solid #f74d4d;
+	border: 1px solid $med-accent;
 }
 </style>

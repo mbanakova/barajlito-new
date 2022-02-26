@@ -29,7 +29,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 button,
 a {
 	text-decoration: none;
@@ -71,12 +71,12 @@ button:active::after {
 .bright {
 	background-image: repeating-linear-gradient(
 		-60deg,
-		#f74d4d,
-		#f74d4d 10px,
-		#c00808 10px,
-		#c00808 20px
+		$med-accent,
+		$med-accent 10px,
+		$dark-accent 10px,
+		$dark-accent 20px
 	);
-	border-color: #c00808;
+	border-color: $dark-accent;
 }
 
 .bright:hover,
@@ -87,12 +87,13 @@ button:active::after {
 .standard {
 	background-image: repeating-linear-gradient(
 		-60deg,
-		#1d6d92,
-		#1d6d92 10px,
-		#275a81 10px,
-		#275a81 20px
+		$blue,
+		$blue 10px,
+		$navy 10px,
+		$navy 20px
 	);
-	border-color: #1d6d92;
+
+	border-color: $navy;
 }
 
 .standard:hover,

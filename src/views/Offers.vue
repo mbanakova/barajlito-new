@@ -22,7 +22,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .post-list {
 	margin: 0 auto;
 	display: grid;

@@ -3,7 +3,7 @@
 		<div class="wrapper footer-wrapper">
 			<div class="copyright">© mbanakova, {{ year }}</div>
 			<div class="framework">
-				build with<span class="framework__logo">Vue.js</span>
+				build on<span class="framework__logo">Vue.js</span>
 			</div>
 		</div>
 	</footer>
@@ -24,11 +24,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 footer {
 	margin-top: auto;
 	padding: 20px;
-	background-color: #222222;
+	background-color: $dark;
 	color: white;
 	font-size: 14px;
 }

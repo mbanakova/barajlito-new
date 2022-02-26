@@ -22,7 +22,7 @@ export default {
 
 a {
 	text-decoration: none;
-	color: #94ddff;
+	color: $light;
 	background-color: transparent;
 	padding: 10px;
 	border: 1px solid transparent;
@@ -36,7 +36,7 @@ a {
 	&:hover,
 	&:active,
 	&.router-link-active {
-		border: 1px solid #94ddff;
+		border: 1px solid $light;
 	}
 }
 </style>

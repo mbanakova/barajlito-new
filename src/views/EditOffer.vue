@@ -28,7 +28,10 @@
 					@blur="clearValidity('price')"
 				/>
 				<p v-if="!formIsValid">Заполните обязательные поля перед отправкой.</p>
-				<base-button mode="standard" class="submit">Сохранить</base-button>
+				<div class="links">
+					<base-button mode="bright" class="submit">Сохранить</base-button>
+					<router-link to="/my-offers" class="base-button">Отмена</router-link>
+				</div>
 			</form>
 		</base-card>
 	</main>
@@ -106,11 +109,10 @@ export default {
 	},
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 form {
 	display: flex;
 	flex-direction: column;
-
 	gap: 20px;
 }
 
@@ -127,7 +129,7 @@ input[type="checkbox"] + label {
 }
 
 .invalid {
-	border-color: tomato;
+	border-color: $med-accent;
 }
 
 p {
@@ -136,5 +138,11 @@ p {
 
 .submit {
 	align-self: flex-start;
+}
+.links {
+	grid-area: links;
+	display: flex;
+	gap: 20px;
+	align-items: center;
 }
 </style>

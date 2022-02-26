@@ -41,7 +41,7 @@
 							mode="standard"
 							v-if="isLoggedIn && !isLoading"
 							link
-							to="/register"
+							to="/new-offer"
 							>Add new offer</base-button
 						>
 					</div>
@@ -99,7 +99,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .list-page {
 	display: grid;
 	grid-template-columns: 3fr 1fr;
