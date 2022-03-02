@@ -15,6 +15,7 @@
 					:key="offer.id"
 					:id="offer.id"
 					:uid="offer.uid"
+					:thumbnail="offer.thumbnail"
 					:rate="offer.price"
 					:date="offer.date"
 					:title="offer.title"

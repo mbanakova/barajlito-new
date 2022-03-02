@@ -1,6 +1,6 @@
 // import firebase from "firebase";
 
-const token = localStorage.getItem('token');
+// const token = localStorage.getItem('token');
 export default {
   state: {
     lastFetch: null,
@@ -11,6 +11,7 @@ export default {
         owner: 'John Doe',
         date: '20.02.2022',
         title: 'Дача в Бостоне',
+        areas: ['ussr', 'sport', 'books'],
         description:
           "Move right in and enjoy. A wealth of potential in basement as well. ",
         price: 23
@@ -21,6 +22,7 @@ export default {
         owner: 'Сталинида Баррикадовна',
         date: '22.02.2022',
         title: 'Советская радиоточка',
+        areas: ['ussr', 'sport', 'books'],
         description:
           'До сих пор плачу за это удовольствию 265 р в месяц.',
         price: 160
@@ -31,6 +33,7 @@ export default {
         owner: 'Zhang Dong Fang',
         date: '20.02.2022',
         title: 'Конспект XVII съезда КПСС',
+        areas: ['ussr', 'sport', 'books'],
         description:
           'Проходил в Москве с 26 января по 10 февраля 1934 и получил название «Съезд победителей». ',
         price: 12
@@ -42,11 +45,13 @@ export default {
       const offerData = {
         uid: formData.uid,
         date: formData.date,
+        thumbnail: formData.thumbnail,
         title: formData.title,
         description: formData.description,
+        areas: formData.areas,
         price: formData.price,
       }
-
+      let token = context.getters.token;
       const response = await fetch(`https://barahlito-new-default-rtdb.firebaseio.com/offers.json?auth=${token}`, {
         method: 'POST',
         body: JSON.stringify({
@@ -68,11 +73,13 @@ export default {
       const offerData = {
         uid: formData.uid,
         date: formData.date,
+        thumbnail: formData.thumbnail,
         title: formData.title,
         description: formData.description,
+        areas: formData.areas,
         price: formData.price,
       }
-
+      let token = context.getters.token;
       const response = await fetch(`https://barahlito-new-default-rtdb.firebaseio.com/offers/${formData.offerId}.json?auth=${token}`, {
         method: 'PUT',
         body: JSON.stringify({
@@ -95,7 +102,7 @@ export default {
       if (!payload.forceRefresh && !context.getters.shouldUpdate) {
         return;
       }
-
+      let token = context.getters.token;
       const response = await fetch(`https://barahlito-new-default-rtdb.firebaseio.com/offers.json?auth=${token}`);
 
       const responseData = await response.json();
@@ -112,7 +119,9 @@ export default {
           id: key,
           uid: responseData[key].uid,
           date: responseData[key].date,
+          thumbnail: responseData[key].thumbnail,
           title: responseData[key].title,
+          areas: responseData[key].areas,
           description: responseData[key].description,
           price: responseData[key].price
         }

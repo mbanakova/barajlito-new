@@ -98,9 +98,11 @@ export default {
         uid: null,
         token: null
       })
+      context.commit('autoLogout');
     },
     autoLogout(context) {
       context.dispatch('logout')
+      // исправлено (autologout added)
       context.commit('autoLogout')
     },
     // getUserID() {

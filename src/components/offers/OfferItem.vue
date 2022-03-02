@@ -1,24 +1,24 @@
 <template>
 	<base-card class="post-card">
-		<!-- <router-link
+		<router-link
 			:to="offerDetailsLink"
 			class="post-thumbnail"
 			:style="{ backgroundImage: 'url(' + thumbnail + ')' }"
-		></router-link> -->
+		></router-link>
 		<div class="post-content">
 			<div class="post-date">{{ date }}</div>
 			<div class="item-price">{{ rate }} ₽</div>
 			<h1 class="post-title">{{ title }}</h1>
 
 			<p class="post-description">{{ description }}</p>
-			<!-- <div class="post-tags">
+			<div class="post-tags">
 				<base-badge
 					v-for="area in areas"
 					:key="area"
 					:type="area"
 					:badgeTitle="area"
 				></base-badge>
-			</div> -->
+			</div>
 			<div class="links">
 				<router-link :to="offerDetailsLink" class="base-button"
 					>Подробнее</router-link
@@ -34,7 +34,17 @@
 <script>
 export default {
 	emits: ["my-offers"],
-	props: ["id", "uid", "owner", "date", "title", "rate", "description"],
+	props: [
+		"id",
+		"uid",
+		"thumbnail",
+		"owner",
+		"date",
+		"title",
+		"rate",
+		"description",
+		"areas",
+	],
 	data() {
 		return {
 			editOffer: "/edit/" + this.id,
@@ -57,18 +67,20 @@ export default {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+	padding: 0;
 }
 
-/* .post-thumbnail {
+.post-thumbnail {
 	width: 100%;
 	height: 200px;
 	display: block;
 	text-decoration: none;
+
 	background-position: center;
 	background-size: cover;
 	border-bottom-left-radius: 6px;
 	border-bottom-right-radius: 6px;
-} */
+}
 
 .post-content {
 	text-align: center;
@@ -76,6 +88,7 @@ export default {
 	display: grid;
 	grid-template-columns: 2fr 1fr;
 	grid-column-gap: 30px;
+	padding: 20px;
 	grid-template-areas:
 		"date price"
 		"title title"
@@ -89,7 +102,7 @@ export default {
 	color: #c5c5c5;
 	font-weight: 700;
 	text-align: left;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 .item-price {
 	grid-area: price;
@@ -135,26 +148,19 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	gap: 20px;
 }
 
 .edit {
-	// background-image: repeating-linear-gradient(
-	// 	-60deg,
-	// 	#216274,
-	// 	#216274 10px,
-	// 	#094555 10px,
-	// 	#094555 20px
-	// );
-	// border: 2px solid #094555;
 	background-image: repeating-linear-gradient(
 		-60deg,
-		#995905,
-		#995905 10px,
-		#633a05 10px,
-		#633a05 20px
+		$med-accent,
+		$med-accent 10px,
+		$dark-accent 10px,
+		$dark-accent 20px
 	);
-	border: 2px solid #633a05;
-	color: white;
+	border: 2px solid $dark-accent;
+	color: $white;
 	cursor: pointer;
 	border-radius: 10px;
 	font-weight: 500;
@@ -165,7 +171,7 @@ export default {
 	text-align: center;
 
 	& svg {
-		fill: white;
+		fill: $white;
 	}
 }
 </style>

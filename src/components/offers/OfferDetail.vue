@@ -14,25 +14,35 @@
 				<p>{{ description }}</p>
 				<h3 class="offer__owner">{{ owner }}</h3>
 				<h3 class="offer__date">{{ date }}</h3>
+				<div class="badges__list">
+					<base-badge
+						v-for="area in areas"
+						:key="area"
+						:type="area"
+						:badgeTitle="area"
+					></base-badge>
+				</div>
 			</base-card>
 		</section>
 		<section class="offer__chat">
-			<base-card>
-				<header>
-					<h2>Написать владельцу:</h2>
-					<form>
-						<input type="email" name="email" id="email" />
-						<textarea name="message" id="message" rows="5"></textarea>
-						<base-button mode="bright" class="submit">Отправить</base-button>
-					</form>
-				</header>
+			<base-card v-if="isMyOffer">
+				<router-link :to="editOffer" class="edit"
+					>Редактировать <font-awesome icon="edit"
+				/></router-link>
+			</base-card>
+			<base-card v-else>
+				<h2>Написать владельцу:</h2>
+				<form>
+					<textarea name="message" id="message" rows="5"></textarea>
+					<base-button mode="bright" class="submit">Отправить</base-button>
+				</form>
 			</base-card>
 		</section>
 	</div>
 </template>
 
 <script>
-// import ContactOffer from "../Requests/ContactOffer.vue";
+import { mapGetters } from "vuex";
 
 export default {
 	// components: { ContactOffer },
@@ -42,7 +52,18 @@ export default {
 			selectedOffer: null,
 		};
 	},
+	created() {
+		this.selectedOffer = this.$store.getters["offers"].find(
+			offer => offer.id === this.$route.params.id,
+		);
+	},
 	computed: {
+		...mapGetters({
+			uid: ["userId"],
+		}),
+		editOffer() {
+			return "/edit/" + this.selectedOffer.id;
+		},
 		date() {
 			return this.selectedOffer.date;
 		},
@@ -52,26 +73,26 @@ export default {
 		owner() {
 			return this.selectedOffer.owner;
 		},
-		// thumbnail() {
-		// 	return this.selectedOffer.thumbnail;
-		// },
+		thumbnail() {
+			return this.selectedOffer.thumbnail;
+		},
 		areas() {
 			return this.selectedOffer.areas;
 		},
 		price() {
 			return this.selectedOffer.price;
 		},
+
 		description() {
 			return this.selectedOffer.description;
 		},
 		contactLink() {
 			return this.$route.path + "/contact";
 		},
-	},
-	created() {
-		this.selectedOffer = this.$store.getters["offers"].find(
-			offer => offer.id === this.$route.params.id,
-		);
+
+		isMyOffer() {
+			return this.selectedOffer.uid === this.uid;
+		},
 	},
 };
 </script>
@@ -143,5 +164,29 @@ p {
 
 .submit {
 	align-self: flex-start;
+}
+.edit {
+	background-image: repeating-linear-gradient(
+		-60deg,
+		$med-accent,
+		$med-accent 10px,
+		$dark-accent 10px,
+		$dark-accent 20px
+	);
+	border: 2px solid $dark-accent;
+	color: $white;
+	cursor: pointer;
+	border-radius: 10px;
+	font-weight: 500;
+	padding: 10px 20px;
+	display: inline-block;
+	transition: all 0.3s ease-in-out;
+	position: relative;
+	text-align: center;
+	text-decoration: none;
+
+	& svg {
+		fill: $white;
+	}
 }
 </style>

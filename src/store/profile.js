@@ -1,11 +1,10 @@
 
-const token = localStorage.getItem('token');
-const uid = localStorage.getItem('uid');
+// const token = localStorage.getItem('token');
+// const uid = localStorage.getItem('uid');
 
 export default {
   state: {
     users: {
-      uid: uid,
       profile: {}
     }
   },
@@ -17,6 +16,8 @@ export default {
         lastName: payload.lastName,
         userName: payload.userName
       }
+      let token = context.getters.token;
+      let uid = context.getters.userId;
       const response = await fetch(`https://barahlito-new-default-rtdb.firebaseio.com/users/${uid}/info.json?auth=${token}`, {
         method: 'PUT',
         body: JSON.stringify({
@@ -33,6 +34,8 @@ export default {
       context.commit('updateProfile', profile)
     },
     async fetchProfile(context) {
+      let token = context.getters.token;
+      let uid = context.getters.userId;
       const response = await fetch(`https://barahlito-new-default-rtdb.firebaseio.com/users/${uid}.json?auth=${token}`);
 
       const responseData = await response.json();

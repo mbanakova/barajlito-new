@@ -1,83 +1,84 @@
 <template>
 	<base-card>
-		<h2>Filter by tags:</h2>
+		<h2>Выбрать категорию:</h2>
 		<div class="filters__list">
 			<label for="apparel">
 				<input type="checkbox" id="apparel" checked @change="setFilter" />
 				<span class="check"></span>
-				apparel</label
+				одежда</label
 			>
-			<label for="home">
-				<input type="checkbox" id="home" checked @change="setFilter" /><span
-					class="check"
-				></span>
-				home</label
-			>
+
 			<label for="toys">
 				<input type="checkbox" id="toys" checked @change="setFilter" /><span
 					class="check"
 				></span>
-				toys</label
+				игрушки</label
 			>
 			<label for="sport">
 				<input type="checkbox" id="sport" checked @change="setFilter" /><span
 					class="check"
 				></span>
-				sport</label
+				спорт</label
 			>
 			<label for="books">
 				<input type="checkbox" id="books" checked @change="setFilter" /><span
 					class="check"
 				></span>
-				books</label
+				книги</label
+			>
+			<label for="home">
+				<input type="checkbox" id="home" checked @change="setFilter" /><span
+					class="check"
+				></span>
+				дом</label
 			>
 			<label for="kitchen">
 				<input type="checkbox" id="kitchen" checked @change="setFilter" /><span
 					class="check"
 				></span>
-				kitchen</label
+				кухня</label
 			>
 			<label for="hobby">
 				<input type="checkbox" id="hobby" checked @change="setFilter" /><span
 					class="check"
 				></span>
-				hobby</label
+				увлечения</label
 			>
 			<label for="auto">
 				<input type="checkbox" id="auto" checked @change="setFilter" /><span
 					class="check"
 				></span>
-				auto</label
+				авто</label
 			>
 			<label for="ussr">
 				<input type="checkbox" id="ussr" checked @change="setFilter" /><span
 					class="check"
 				></span>
-				ussr</label
+				ссср</label
 			>
 			<label for="plants">
 				<input type="checkbox" id="plants" checked @change="setFilter" /><span
 					class="check"
 				></span>
-				plants</label
+				растения</label
 			>
 			<label for="pets">
 				<input type="checkbox" id="pets" checked @change="setFilter" /><span
 					class="check"
 				></span>
-				pets</label
+				животные</label
 			>
 			<label for="leisure">
 				<input type="checkbox" id="leisure" checked @change="setFilter" /><span
 					class="check"
 				></span>
-				leisure</label
+				отдых</label
 			>
 			<label for="others">
 				<input type="checkbox" id="others" checked @change="setFilter" /><span
 					class="check"
 				></span>
-				others</label
+				разное</label
 			>
 		</div>
 	</base-card>
@@ -136,9 +137,10 @@ input[type="checkbox"] {
 	appearance: none;
 	position: absolute;
 	padding: 0;
-	background-color: transparent;
+	background-color: #e2e2e2;
 	border: none;
 	margin: 0;
+	outline: none;
 }
 
 label {
@@ -148,6 +150,7 @@ label {
 	background-color: #e2e2e2;
 	cursor: pointer;
 	border-radius: 15px;
+	user-select: none;
 }
 
 .check {
@@ -180,14 +183,5 @@ label {
 
 input[type="checkbox"]:checked ~ .check::before {
 	display: block;
-}
-
-label input[type="checkbox"]:checked {
-	color: white;
-	background-color: $bright;
-}
-
-.filter-option.active label {
-	font-weight: bold;
 }
 </style>
