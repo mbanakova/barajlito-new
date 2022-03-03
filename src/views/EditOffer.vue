@@ -3,34 +3,189 @@
 		<h1>Редактировать объявление «{{ this.editedOffer.title }}»</h1>
 		<base-card>
 			<form @submit.prevent="submitEditedForm">
-				<input
-					:class="{ invalid: !title.isValid }"
-					type="text"
-					:placeholder="this.editedOffer.title"
-					v-model.trim="title.val"
-					id="title"
-					@blur="clearValidity('title')"
-				/>
-				<textarea
-					:class="{ invalid: !description.isValid }"
-					id="description"
-					:placeholder="this.editedOffer.description"
-					v-model.trim="description.val"
-					rows="5"
-					@blur="clearValidity('description')"
-				/>
-				<input
-					:class="{ invalid: !price.isValid }"
-					type="number"
-					:placeholder="this.editedOffer.price"
-					id="price"
-					v-model.number="price.val"
-					@blur="clearValidity('price')"
-				/>
+				<div class="form-control">
+					<label for="title">title</label>
+					<input
+						:class="{ invalid: !title.isValid }"
+						type="text"
+						v-model.trim="this.editedOffer.title"
+						id="title"
+						@blur="clearValidity('title')"
+					/>
+				</div>
+				<div class="form-control" :class="{ invalid: !thumbnail.isValid }">
+					<input
+						type="text"
+						name=""
+						id="thumbnail"
+						v-model.trim="this.editedOffer.thumbnail"
+						@blur="clearValidity('thumbnail')"
+					/>
+					<p v-if="!thumbnail.isValid">Добавьте фото</p>
+				</div>
+				<div class="form-control">
+					<label for="description">description</label>
+					<textarea
+						:class="{ invalid: !description.isValid }"
+						id="description"
+						v-model.trim="this.editedOffer.description"
+						rows="5"
+						@blur="clearValidity('description')"
+					/>
+				</div>
+				<div class="form-control">
+					<label for="price">price</label>
+					<input
+						:class="{ invalid: !price.isValid }"
+						type="number"
+						id="price"
+						v-model.number="this.editedOffer.price"
+						@blur="clearValidity('price')"
+					/>
+				</div>
+				<div
+					class="form-control checkboxes-grid"
+					:class="{ invalid: !areas.isValid }"
+				>
+					<h3>Отметьте подходящие категории:</h3>
+					<div>
+						<input
+							type="checkbox"
+							id="apparel"
+							value="apparel"
+							v-model="this.editedOffer.areas"
+						/>
+						<label for="apparel">одежда</label>
+					</div>
+					<div>
+						<input
+							type="checkbox"
+							id="home"
+							value="home"
+							v-model="this.editedOffer.areas"
+							@blur="clearValidity('areas')"
+						/>
+						<label for="home">дом</label>
+					</div>
+					<div>
+						<input
+							type="checkbox"
+							id="toys"
+							value="toys"
+							v-model="this.editedOffer.areas"
+							@blur="clearValidity('areas')"
+						/>
+						<label for="toys">игрушки</label>
+					</div>
+					<div>
+						<input
+							type="checkbox"
+							id="sport"
+							value="sport"
+							v-model="this.editedOffer.areas"
+							@blur="clearValidity('areas')"
+						/>
+						<label for="sport">спорт</label>
+					</div>
+					<div>
+						<input
+							type="checkbox"
+							id="books"
+							value="books"
+							v-model="this.editedOffer.areas"
+							@blur="clearValidity('areas')"
+						/>
+						<label for="books">книги</label>
+					</div>
+					<div>
+						<input
+							type="checkbox"
+							id="kitchen"
+							value="kitchen"
+							v-model="this.editedOffer.areas"
+							@blur="clearValidity('areas')"
+						/>
+						<label for="kitchen">кухня</label>
+					</div>
+					<div>
+						<input
+							type="checkbox"
+							id="hobby"
+							value="hobby"
+							v-model="this.editedOffer.areas"
+							@blur="clearValidity('areas')"
+						/>
+						<label for="hobby">увлечения</label>
+					</div>
+					<div>
+						<input
+							type="checkbox"
+							id="auto"
+							value="auto"
+							v-model="this.editedOffer.areas"
+							@blur="clearValidity('areas')"
+						/>
+						<label for="auto">авто</label>
+					</div>
+					<div>
+						<input
+							type="checkbox"
+							id="ussr"
+							value="ussr"
+							v-model="this.editedOffer.areas"
+							@blur="clearValidity('areas')"
+						/>
+						<label for="ussr">ссср</label>
+					</div>
+					<div>
+						<input
+							type="checkbox"
+							id="plants"
+							value="plants"
+							v-model="this.editedOffer.areas"
+							@blur="clearValidity('areas')"
+						/>
+						<label for="plants">растения</label>
+					</div>
+					<div>
+						<input
+							type="checkbox"
+							id="pets"
+							value="pets"
+							v-model="this.editedOffer.areas"
+							@blur="clearValidity('areas')"
+						/>
+						<label for="pets">животные</label>
+					</div>
+					<div>
+						<input
+							type="checkbox"
+							id="leisure"
+							value="leisure"
+							v-model="this.editedOffer.areas"
+							@blur="clearValidity('areas')"
+						/>
+						<label for="leisure">отдых</label>
+					</div>
+					<div>
+						<input
+							type="checkbox"
+							id="others"
+							value="others"
+							v-model="this.editedOffer.areas"
+							@blur="clearValidity('areas')"
+						/>
+						<label for="others">разное</label>
+					</div>
+					<p v-if="!areas.isValid">
+						Выберите хотя бы одну подходящую категорию
+					</p>
+				</div>
 				<p v-if="!formIsValid">Заполните обязательные поля перед отправкой.</p>
+
 				<div class="links">
 					<base-button mode="bright" class="submit">Сохранить</base-button>
-					<router-link to="/my-offers" class="base-button">Отмена</router-link>
+					<router-link to="/home" class="base-button">Отмена</router-link>
 				</div>
 			</form>
 		</base-card>
@@ -47,8 +202,16 @@ export default {
 				val: "",
 				isValid: true,
 			},
+			thumbnail: {
+				val: "",
+				isValid: true,
+			},
 			description: {
 				val: "",
+				isValid: true,
+			},
+			areas: {
+				val: [],
 				isValid: true,
 			},
 			price: {
@@ -79,6 +242,10 @@ export default {
 				this.title.isValid = false;
 				this.formIsValid = false;
 			}
+			if (this.thumbnail.val === "") {
+				this.thumbnail.isValid = false;
+				this.formIsValid = false;
+			}
 			if (this.description.val === "") {
 				this.description.isValid = false;
 				this.formIsValid = false;
@@ -87,21 +254,27 @@ export default {
 				this.price.isValid = false;
 				this.formIsValid = false;
 			}
+			if (this.areas.val.length === 0) {
+				this.areas.isValid = false;
+				this.formIsValid = false;
+			}
 		},
 		async submitEditedForm() {
-			this.validateForm();
+			// this.validateForm();
 
-			if (!this.formIsValid) {
-				return;
-			}
+			// if (!this.formIsValid) {
+			// 	return;
+			// }
 
 			const editedOffer = {
 				uid: this.uid,
 				offerId: this.editedOffer.id,
+				thumbnail: this.editedOffer.thumbnail,
 				date: new Date().toLocaleDateString(),
-				title: this.title.val,
-				description: this.description.val,
-				price: this.price.val,
+				title: this.editedOffer.title,
+				description: this.editedOffer.description,
+				areas: this.editedOffer.areas,
+				price: this.editedOffer.price,
 			};
 			await this.$store.dispatch("editOffer", editedOffer);
 			this.$router.push("/");
@@ -119,13 +292,13 @@ form {
 label {
 	font-weight: bold;
 	display: block;
-	margin-bottom: 0.5rem;
+	margin-bottom: 10px;
 }
 
 input[type="checkbox"] + label {
 	font-weight: normal;
 	display: inline;
-	margin: 0 0 0 0.5rem;
+	margin: 0 0 0 20px;
 }
 
 .invalid {
@@ -134,6 +307,15 @@ input[type="checkbox"] + label {
 
 p {
 	margin: 0;
+}
+.checkboxes-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-column-gap: 50px;
+
+	& h3 {
+		grid-column: span 3;
+	}
 }
 
 .submit {
