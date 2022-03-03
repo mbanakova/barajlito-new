@@ -12,7 +12,7 @@
 				<h2>{{ title }}</h2>
 				<h3>{{ price }} ₽</h3>
 				<p>{{ description }}</p>
-				<h3 class="offer__owner">{{ owner }}</h3>
+				<h3 class="offer__owner">User: {{ owner }}</h3>
 				<h3 class="offer__date">{{ date }}</h3>
 				<div class="badges__list">
 					<base-badge
@@ -32,8 +32,24 @@
 			</base-card>
 			<base-card v-else>
 				<h2>Написать владельцу:</h2>
-				<form>
-					<textarea name="message" id="message" rows="5"></textarea>
+				<form @submit.prevent="submitForm">
+					<input
+						type="text"
+						id="userName"
+						placeholder="Укажите своё имя"
+						v-model="userName.val"
+						:class="{ error: !formIsValid }"
+						@blur="clearValidity('userName')"
+					/>
+					<textarea
+						name="message"
+						id="message"
+						rows="5"
+						v-model="message.val"
+						:class="{ error: !formIsValid }"
+						@blur="clearValidity('message')"
+					></textarea>
+					<p v-if="!formIsValid">Заполните форму перед отправкой</p>
 					<base-button mode="bright" class="submit">Отправить</base-button>
 				</form>
 			</base-card>
@@ -50,12 +66,23 @@ export default {
 	data() {
 		return {
 			selectedOffer: null,
+			userName: {
+				val: "",
+				isValid: true,
+			},
+			message: {
+				val: "",
+				isValid: true,
+			},
+			formIsValid: true,
 		};
 	},
 	created() {
 		this.selectedOffer = this.$store.getters["offers"].find(
 			offer => offer.id === this.$route.params.id,
 		);
+
+		this.ownerId = this.selectedOffer.uid;
 	},
 	computed: {
 		...mapGetters({
@@ -71,7 +98,7 @@ export default {
 			return this.selectedOffer.title;
 		},
 		owner() {
-			return this.selectedOffer.owner;
+			return this.selectedOffer.uid;
 		},
 		thumbnail() {
 			return this.selectedOffer.thumbnail;
@@ -92,6 +119,29 @@ export default {
 
 		isMyOffer() {
 			return this.selectedOffer.uid === this.uid;
+		},
+	},
+	methods: {
+		submitForm() {
+			this.formIsValid = true;
+			if (this.message.val === "" || this.userName.val === "") {
+				this.formIsValid = false;
+				return;
+			}
+			const messageData = {
+				owner: this.ownerId,
+				title: this.title,
+				thumbnail: this.thumbnail,
+				userName: this.userName.val,
+				message: this.message.val,
+			};
+			this.$store.dispatch("contactOwner", { ...messageData });
+
+			this.$router.replace("/");
+		},
+
+		clearValidity(input) {
+			this[input].isValid = true;
 		},
 	},
 };
@@ -188,5 +238,10 @@ p {
 	& svg {
 		fill: $white;
 	}
+}
+
+.error {
+	border-color: $accent;
+	background-color: lighten($accent, 45%);
 }
 </style>

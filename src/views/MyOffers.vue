@@ -67,6 +67,21 @@ export default {
 		return {
 			isLoading: false,
 			error: null,
+			activeFilters: {
+				apparel: true,
+				home: true,
+				toys: true,
+				sport: true,
+				books: true,
+				kitchen: true,
+				hobby: true,
+				auto: true,
+				ussr: true,
+				plants: true,
+				pets: true,
+				leisure: true,
+				others: true,
+			},
 		};
 	},
 
@@ -80,8 +95,67 @@ export default {
 			hasOffers: ["hasOffers"],
 			isLoggedIn: ["isLoggedIn"],
 		}),
+		filteredOffers() {
+			const offers = this.offers;
+			return offers.filter(offer => {
+				console.log(offer.areas);
+				if (this.activeFilters.apparel && offer.areas.includes("apparel")) {
+					return true;
+				}
+				if (this.activeFilters.home && offer.areas.includes("home")) {
+					return true;
+				}
+				if (this.activeFilters.toys && offer.areas.includes("toys")) {
+					return true;
+				}
+				if (this.activeFilters.sport && offer.areas.includes("sport")) {
+					return true;
+				}
+				if (this.activeFilters.books && offer.areas.includes("books")) {
+					return true;
+				}
+				if (this.activeFilters.kitchen && offer.areas.includes("kitchen")) {
+					return true;
+				}
+				if (this.activeFilters.hobby && offer.areas.includes("hobby")) {
+					return true;
+				}
+				if (this.activeFilters.auto && offer.areas.includes("auto")) {
+					return true;
+				}
+				if (this.activeFilters.ussr && offer.areas.includes("ussr")) {
+					return true;
+				}
+				if (this.activeFilters.plants && offer.areas.includes("plants")) {
+					return true;
+				}
+				if (this.activeFilters.pets && offer.areas.includes("pets")) {
+					return true;
+				}
+				if (this.activeFilters.leisure && offer.areas.includes("leisure")) {
+					return true;
+				}
+				if (this.activeFilters.others && offer.areas.includes("others")) {
+					return true;
+				}
+				return false;
+			});
+		},
 	},
 	methods: {
+		// setFilter(event) {
+		// 	const inputId = event.target.id;
+		// 	const isActive = event.target.checked;
+		// 	const updatedFilters = {
+		// 		...this.filters,
+		// 		[inputId]: isActive,
+		// 	};
+		// 	this.filters = updatedFilters;
+		// 	this.$emit("change-filter", updatedFilters);
+		// },
+		setFilters(updatedFilters) {
+			this.activeFilters = updatedFilters;
+		},
 		async loadOffers(refresh = false) {
 			this.isLoading = true;
 			try {

@@ -7,7 +7,7 @@
 			<div v-if="isLoading">
 				<base-spinner></base-spinner>
 			</div>
-			<ul v-else-if="hasOffers" class="post-list">
+			<ul v-else-if="hasOffers && !isLoading" class="post-list">
 				<OfferItem
 					v-for="offer in filteredOffers"
 					:key="offer.id"
@@ -94,7 +94,6 @@ export default {
 		filteredOffers() {
 			const offers = this.offers;
 			return offers.filter(offer => {
-				console.log(offer.areas);
 				if (this.activeFilters.apparel && offer.areas.includes("apparel")) {
 					return true;
 				}
