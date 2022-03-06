@@ -114,7 +114,8 @@ export default {
 	grid-area: title;
 	margin: 0;
 	text-align: left;
-	font-size: 24px;
+	font-size: 20px;
+	line-height: 25px;
 	margin-bottom: 10px;
 }
 .post-description {

@@ -7,7 +7,12 @@
 			<div v-if="isLoading">
 				<base-spinner></base-spinner>
 			</div>
-			<ul v-else-if="hasOffers && !isLoading" class="post-list">
+			<transition-group
+				tag="ul"
+				name="offers-list"
+				v-else-if="hasOffers && !isLoading"
+				class="post-list"
+			>
 				<OfferItem
 					v-for="offer in filteredOffers"
 					:key="offer.id"
@@ -20,7 +25,7 @@
 					:title="offer.title"
 					:description="offer.description"
 				/>
-			</ul>
+			</transition-group>
 			<h3 v-else>
 				Никто пока не добавил объявлений. Станьте первым, добавив своё!
 			</h3>
@@ -158,6 +163,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.side-filter {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
 .list-page {
 	display: grid;
 	grid-template-columns: 3fr 1fr;
@@ -174,7 +184,7 @@ export default {
 	grid-gap: 30px;
 	padding: 0;
 
-	@media (max-width: 1023px) {
+	@media (max-width: 1200px) {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
@@ -182,5 +192,38 @@ export default {
 		grid-template-columns: 1fr;
 		grid-gap: 20px;
 	}
+}
+.offers-list-enter-from {
+	opacity: 0;
+	transform: translateY(-30px);
+}
+
+.offers-list-enter-active {
+	transition: all 1s ease-out;
+}
+
+.offers-list-leave-active {
+	transition: all 1s ease-in;
+	position: absolute;
+}
+
+.offers-list-enter-to,
+.offers-list-leave-from {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.offers-list-leave-to {
+	opacity: 0;
+	transform: translateY(30px);
+}
+
+.offers-list-move {
+	transition: transform 0.8s ease;
+}
+.controls {
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
 }
 </style>

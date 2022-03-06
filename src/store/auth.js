@@ -9,6 +9,7 @@ export default {
       token: null,
       didAutoLogout: false,
       isLoggedIn: false,
+      credentials: {}
     }
   },
   actions: {
@@ -47,6 +48,8 @@ export default {
         context.dispatch('autoLogout')
       }, expiresIn);
 
+
+
       context.commit('setUser', {
         token: responseData.idToken,
         uid: responseData.localId
@@ -63,6 +66,29 @@ export default {
         ...payload,
         mode: 'signup'
       })
+    },
+
+    async saveAuthData(context, payload) {
+      const uid = context.getters.userId;
+      const token = context.getters.token;
+
+      const credentials = {
+        email: payload.email,
+        password: payload.password,
+      }
+
+      const response = await fetch(`https://barahlito-new-default-rtdb.firebaseio.com/users/${uid}/auth.json?auth=${token}`, {
+        method: 'PUT',
+        body: JSON.stringify({ ...credentials })
+      })
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        const error = new Error(data.message);
+        throw error;
+      }
+      context.commit('saveAuthData', { ...credentials })
     },
     tryLogin(context) {
       const token = localStorage.getItem('token');
@@ -121,6 +147,9 @@ export default {
     autoLogout(state) {
       state.user.didAutoLogout = true;
       state.user.isLoggedIn = false;
+    },
+    saveAuthData(state, payload) {
+      state.user.credentials = payload;
     }
   },
   getters: {
@@ -138,6 +167,9 @@ export default {
     },
     didAutoLogout(state) {
       return state.user.didAutoLogout
+    },
+    getCredentials(state) {
+      return state.user.credentials
     }
   },
 }

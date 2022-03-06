@@ -17,6 +17,7 @@
 					:uid="offer.uid"
 					:thumbnail="offer.thumbnail"
 					:rate="offer.price"
+					:areas="offer.areas"
 					:date="offer.date"
 					:title="offer.title"
 					:description="offer.description"
@@ -98,7 +99,6 @@ export default {
 		filteredOffers() {
 			const offers = this.offers;
 			return offers.filter(offer => {
-				console.log(offer.areas);
 				if (this.activeFilters.apparel && offer.areas.includes("apparel")) {
 					return true;
 				}
@@ -175,6 +175,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.side-filter {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
 .list-page {
 	display: grid;
 	grid-template-columns: 3fr 1fr;
@@ -191,7 +197,7 @@ export default {
 	grid-gap: 30px;
 	padding: 0;
 
-	@media (max-width: 1023px) {
+	@media (max-width: 1200px) {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
@@ -199,5 +205,11 @@ export default {
 		grid-template-columns: 1fr;
 		grid-gap: 20px;
 	}
+}
+
+.controls {
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
 }
 </style>

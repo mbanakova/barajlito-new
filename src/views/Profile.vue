@@ -3,10 +3,11 @@
 		<base-popup :show="!!error" @close="gotIt">
 			<p>{{ serverMessage }}</p>
 		</base-popup>
-		<base-card class="h1"><h1>Profile</h1></base-card>
+
 		<base-card class="profile__current">
+			<h1>Profile</h1>
 			<div class="profile__img">
-				<font-awesome icon="user" />
+				<img :src="avatar" />
 			</div>
 			<div class="profile__changable">
 				<p>{{ currentData.firstName }}</p>
@@ -18,9 +19,16 @@
 				<p>{{ currentData.password }}</p>
 			</div>
 		</base-card>
+
 		<base-card>
 			<h2>Изменить данные:</h2>
 			<form @submit.prevent="updateProfile" class="profile__form">
+				<input
+					type="file"
+					ref="fileInput"
+					accept="image/*"
+					@change="onFileSelected"
+				/>
 				<input type="text" placeholder="Имя" v-model.trim="firstName" />
 				<input type="text" placeholder="Фамилия" v-model.trim="lastName" />
 				<input
@@ -35,16 +43,16 @@
 </template>
 
 <script>
-import errors from "@/messages/errors";
 import BasePopup from "../components/UI/BasePopup.vue";
 import { mapGetters } from "vuex";
+// import firebase from "firebase/app";
+// import "firebase/storage";
 
 export default {
 	components: { BasePopup },
 	data() {
 		return {
 			image: null,
-			imageUrl: "",
 			firstName: "",
 			lastName: "",
 			userName: "",
@@ -59,9 +67,20 @@ export default {
 			currentData: ["profileUserData"],
 			uid: ["userId"],
 			token: ["token"],
+			avatar: ["getAvatar"],
 		}),
 	},
 	methods: {
+		async onFileSelected(event) {
+			let avatar = event.target.files[0];
+
+			try {
+				await this.$store.dispatch("loadAvatar", avatar);
+			} catch (error) {
+				this.error = error.message;
+			}
+		},
+
 		gotIt() {
 			this.error = null;
 		},
@@ -71,6 +90,7 @@ export default {
 				firstName: this.firstName,
 				lastName: this.lastName,
 				userName: this.userName,
+				avatar: this.avatar,
 			};
 			try {
 				await this.$store.dispatch("updateProfile", newData);
@@ -85,9 +105,7 @@ export default {
 			try {
 				await this.$store.dispatch("fetchProfile");
 			} catch (error) {
-				this.error = true;
-				this.serverMessage = errors[error.code];
-				throw error;
+				throw new Error(error);
 			}
 		},
 	},
@@ -97,15 +115,9 @@ export default {
 <style lang="scss" scoped>
 .profile {
 	display: grid;
-	grid-template-areas:
-		"h1 h1"
-		"current form";
+	grid-template-areas: "current form";
 	grid-template-columns: repeat(2, 1fr);
 	grid-gap: 40px;
-}
-
-.h1 {
-	grid-area: h1;
 }
 
 .profile__current {
@@ -114,8 +126,6 @@ export default {
 	grid-template-columns: repeat(2, 1fr);
 }
 
-// .profile__changable {
-// }
 .profile__auth-data {
 	grid-column: span 2;
 	text-align: center;
@@ -126,20 +136,15 @@ export default {
 }
 
 .profile__img {
-	width: 80px;
-	height: 80px;
-	background-color: $blue;
+	width: 100px;
 	border-radius: 6px;
-	border: 3px solid white;
-	outline: 2px solid $blue;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: white;
+	border: 3px solid $grey;
+	padding: 10px;
 
-	& svg {
-		width: 25px;
-		height: 25px;
+	& img {
+		width: 100%;
+		height: auto;
+		display: block;
 	}
 }
 form {

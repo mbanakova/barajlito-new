@@ -89,6 +89,8 @@ export default {
 					this.$router.replace("/");
 				} else {
 					await this.$store.dispatch("signup", authData);
+					await this.$store.dispatch("saveAuthData", authData);
+
 					this.$router.replace("/");
 				}
 			} catch (error) {

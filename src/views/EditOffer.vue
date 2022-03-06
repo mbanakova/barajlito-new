@@ -185,7 +185,7 @@
 
 				<div class="links">
 					<base-button mode="bright" class="submit">Сохранить</base-button>
-					<router-link to="/home" class="base-button">Отмена</router-link>
+					<router-link to="/" class="base-button">Отмена</router-link>
 				</div>
 			</form>
 		</base-card>

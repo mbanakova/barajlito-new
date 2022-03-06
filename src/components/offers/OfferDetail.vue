@@ -128,6 +128,7 @@ export default {
 				this.formIsValid = false;
 				return;
 			}
+
 			const messageData = {
 				owner: this.ownerId,
 				title: this.title,
