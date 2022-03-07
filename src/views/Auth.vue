@@ -1,13 +1,14 @@
 <template>
-	<main class="wrapper">
-		<base-popup :show="!!error" @close="gotIt" title="Ошибка доступа">
-			<p>{{ serverMessage }}</p>
-		</base-popup>
-		<base-popup :show="isLoading" title="Authenticating..." fixed>
-			<base-spinner></base-spinner>
-		</base-popup>
+	<div class="container">
+		<Canvas />
+		<main class="wrapper">
+			<base-popup :show="!!error" @close="gotIt" title="Ошибка доступа">
+				<p>{{ serverMessage }}</p>
+			</base-popup>
+			<base-popup :show="isLoading" title="Authenticating..." fixed>
+				<base-spinner></base-spinner>
+			</base-popup>
 
-		<base-card>
 			<form @submit.prevent="auth">
 				<h1>Auth</h1>
 				<input type="email" placeholder="email" v-model="email" />
@@ -22,16 +23,16 @@
 					</button>
 				</p>
 			</form>
-		</base-card>
-	</main>
+		</main>
+	</div>
 </template>
 
 <script>
 import errors from "@/messages/errors";
 import BasePopup from "@/components/UI/BasePopup.vue";
-
+import Canvas from "@/components/UI/Canvas";
 export default {
-	components: { BasePopup },
+	components: { BasePopup, Canvas },
 	name: "Auth",
 	data() {
 		return {
@@ -106,6 +107,26 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+#app {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+.container {
+	position: relative;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.wrapper {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	max-width: 600px;
+	width: 100%;
+}
 .popup {
 	padding: 20px;
 	background-color: #f0caca;
@@ -116,7 +137,19 @@ form {
 	flex-direction: column;
 	align-items: center;
 	gap: 20px;
+	backdrop-filter: blur(5px);
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	background-color: rgba(255, 255, 255, 0.2);
+	border-right: 1px solid rgba(255, 255, 255, 0.2);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+	padding: 20px 50px;
+	border-radius: 6px;
 }
+
+h1 {
+	color: $white;
+}
+
 input {
 	padding: 5px 10px;
 }

@@ -1,15 +1,18 @@
 <template>
-	<main class="wrapper">
-		<div v-if="isLoading">
-			<base-spinner></base-spinner>
-		</div>
+	<div>
+		<main class="wrapper">
+			<div v-if="isLoading">
+				<base-spinner></base-spinner>
+			</div>
 
-		<OffersList />
-	</main>
+			<OffersList />
+		</main>
+	</div>
 </template>
 
 <script>
 import OffersList from "@/components/offers/OffersList";
+
 export default {
 	components: {
 		OffersList,

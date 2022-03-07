@@ -70,7 +70,9 @@ const router = createRouter({
     },
     {
       path: '/:notFound(.*)', // .* = any other text
+
       component: NotFound
+
     }
   ]
 });
