@@ -76,7 +76,7 @@ dialog {
 	overflow: hidden;
 	background-color: white;
 
-	@media (min-width: 768px) {
+	@media (min-width: ( $mobile + 1px)) {
 		width: 40rem;
 	}
 }

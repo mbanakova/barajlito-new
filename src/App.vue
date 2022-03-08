@@ -1,18 +1,26 @@
 <template>
-	<TheHeader />
-	<router-view v-slot="slotProps"
-		><transition name="route" mode="out-in">
-			<component :is="slotProps.Component"></component> </transition
-	></router-view>
+	<TheHeader @burgerToggle="displaySideNav = !displaySideNav" />
+	<TheSideNav :show="displaySideNav" @close="displaySideNav = false" />
+	<router-view v-slot="slotProps">
+		<transition name="route" mode="out-in">
+			<component :is="slotProps.Component"> /></component>
+		</transition></router-view
+	>
 	<TheFooter />
 </template>
 
 <script>
 import TheHeader from "@/components/TheHeader";
+import TheSideNav from "@/components/TheSideNav";
 import TheFooter from "@/components/TheFooter";
 
 export default {
-	components: { TheHeader, TheFooter },
+	components: { TheHeader, TheSideNav, TheFooter },
+	data() {
+		return {
+			displaySideNav: false,
+		};
+	},
 	computed: {
 		didAutoLogout() {
 			return this.$store.getters.didAutoLogout;
@@ -84,8 +92,60 @@ body {
 .wrapper {
 	max-width: 1440px;
 	width: 100%;
-	padding: 20px;
+	padding: 30px 20px 50px;
 	margin: 0 auto;
+
+	@media (max-width: $tablet) {
+		padding-top: 90px;
+	}
+}
+
+h1 {
+	margin: 0 auto 30px;
+	font-size: 32px;
+	line-height: 110%;
+	word-break: break-word;
+
+	@media (max-width: $tablet) {
+		font-size: 28px;
+	}
+
+	@media (max-width: $mobile) {
+		font-size: 26px;
+	}
+}
+
+h2 {
+	margin: 0 auto 20px;
+	font-size: 26px;
+	line-height: 110%;
+
+	@media (max-width: $tablet) {
+		font-size: 24px;
+	}
+
+	@media (max-width: $mobile) {
+		font-size: 22px;
+	}
+}
+
+h3 {
+	margin: 0 auto 15px;
+	font-size: 22px;
+	line-height: 110%;
+	@media (max-width: $tablet) {
+		font-size: 20px;
+	}
+
+	@media (max-width: $mobile) {
+		font-size: 18px;
+	}
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 .base-button {
@@ -148,10 +208,18 @@ textarea {
 	display: block;
 	width: 100%;
 	border: 1px solid #ccc;
-	font: inherit;
-	resize: vertical;
-	padding: 5px 10px;
+	font-family: "Roboto", sans-serif;
+	padding: 10px;
 	transition: 0.3s all ease-in-out;
+}
+
+textarea {
+	resize: vertical;
+}
+
+button {
+	font-family: "Roboto", sans-serif;
+	cursor: pointer;
 }
 
 input:focus,
@@ -169,11 +237,6 @@ input[type="checkbox"] {
 
 input[type="checkbox"]:focus {
 	outline: $bright solid 1px;
-}
-
-h3 {
-	margin: 0.5rem 0;
-	font-size: 1rem;
 }
 
 .invalid label {

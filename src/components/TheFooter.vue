@@ -1,6 +1,6 @@
 <template>
 	<footer>
-		<div class="wrapper footer-wrapper">
+		<div class="footer-wrapper">
 			<div class="copyright">© mbanakova, {{ year }}</div>
 			<div class="framework">
 				build on<span class="framework__logo">Vue.js</span>
@@ -27,16 +27,28 @@ export default {
 <style lang="scss" scoped>
 footer {
 	margin-top: auto;
-	padding: 20px;
+	padding: 40px;
 	background-color: $dark;
 	color: white;
 	font-size: 14px;
+
+	@media (max-width: $mobile) {
+		padding: 25px 40px;
+	}
 }
 
 .footer-wrapper {
+	max-width: 1440px;
+	width: 100%;
+	margin: 0 auto;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	gap: 10px;
+
+	@media (max-width: $mobile) {
+		flex-direction: column;
+	}
 }
 
 .framework__logo {

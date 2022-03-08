@@ -1,5 +1,5 @@
 <template>
-	<base-card>
+	<base-card class="filter">
 		<h2>Выбрать категорию:</h2>
 		<div class="filters__list">
 			<label for="apparel">
@@ -124,6 +124,10 @@ export default {
 <style lang="scss" scoped>
 h2 {
 	margin: 0 0 25px;
+}
+
+.filter {
+	flex-grow: 1;
 }
 
 .filters__list {

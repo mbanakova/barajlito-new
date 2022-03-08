@@ -20,9 +20,9 @@
 			</div>
 		</base-card>
 
-		<base-card>
+		<base-card class="profile__form">
 			<h2>Изменить данные:</h2>
-			<form @submit.prevent="updateProfile" class="profile__form">
+			<form @submit.prevent="updateProfile">
 				<input
 					type="file"
 					ref="fileInput"
@@ -115,13 +115,16 @@ export default {
 <style lang="scss" scoped>
 .profile {
 	display: grid;
-	grid-template-areas: "current form";
+
 	grid-template-columns: repeat(2, 1fr);
 	grid-gap: 40px;
+
+	@media (max-width: $mobile) {
+		grid-template-columns: 1fr;
+	}
 }
 
 .profile__current {
-	grid-area: current;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 }
@@ -129,10 +132,6 @@ export default {
 .profile__auth-data {
 	grid-column: span 2;
 	text-align: center;
-}
-
-.profile__form {
-	grid-area: form;
 }
 
 .profile__img {

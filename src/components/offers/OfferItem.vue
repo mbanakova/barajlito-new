@@ -6,8 +6,10 @@
 			:style="{ backgroundImage: 'url(' + thumbnail + ')' }"
 		></router-link>
 		<div class="post-content">
-			<div class="post-date">{{ date }}</div>
-			<div class="item-price">{{ rate }} ₽</div>
+			<div class="date-price">
+				<div class="post-date">{{ date }}</div>
+				<div class="item-price">{{ rate }} ₽</div>
+			</div>
 			<h1 class="post-title">{{ title }}</h1>
 
 			<p class="post-description">{{ description }}</p>
@@ -85,55 +87,49 @@ export default {
 .post-content {
 	text-align: center;
 	flex-grow: 1;
-	display: grid;
-	grid-template-columns: 2fr 1fr;
-	grid-column-gap: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 20px;
 	padding: 20px;
-	grid-template-areas:
-		"date price"
-		"title title"
-		"description description"
-		"tags tags"
-		"links links";
 }
 
+.date-price {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 .post-date {
-	grid-area: date;
 	color: #c5c5c5;
 	font-weight: 700;
 	text-align: left;
-	margin-bottom: 10px;
 }
 .item-price {
-	grid-area: price;
 	text-align: right;
 	color: $bright;
 	font-weight: 700;
 }
+
 .post-title {
-	grid-area: title;
 	margin: 0;
 	text-align: left;
 	font-size: 20px;
 	line-height: 25px;
-	margin-bottom: 10px;
 }
+
 .post-description {
-	grid-area: description;
 	margin: 0;
 	text-align: left;
-	margin-bottom: 15px;
 }
 .post-tags {
-	grid-area: tags;
 	margin: 0;
 	padding: 0;
 	display: flex;
 	align-items: flex-start;
 	flex-wrap: wrap;
 	gap: 10px;
-	margin-bottom: 30px;
 }
+
 .post-tag {
 	list-style: none;
 	color: #9da9af;
@@ -145,7 +141,6 @@ export default {
 }
 
 .links {
-	grid-area: links;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

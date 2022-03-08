@@ -7,7 +7,7 @@ export default {
 	mounted() {
 		const canvas = document.querySelector("canvas");
 		const c = canvas.getContext("2d");
-		const headerHeight = 62;
+		const headerHeight = 60;
 		const footerHeight = 100;
 
 		canvas.width = innerWidth;
@@ -30,7 +30,7 @@ export default {
 			this.radius = radius;
 			this.color = color;
 			this.velocity = {
-				x: (Math.random() - 0.5) * 8,
+				x: (Math.random() - 0.5) * 16,
 				y: 3,
 			};
 
@@ -82,7 +82,7 @@ export default {
 			Star.call(this, x, y, radius, color);
 			this.velocity = {
 				x: randomIntFromRange(-5, 5),
-				y: randomIntFromRange(-12, 12),
+				y: randomIntFromRange(-10, 10),
 			};
 
 			this.friction = 0.8;

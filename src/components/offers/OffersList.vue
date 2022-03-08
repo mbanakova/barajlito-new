@@ -1,57 +1,54 @@
 <template>
-	<div>
-		<base-popup :show="!!error" title="Данные не подгрузились" @close="gotIt">
-			<p>{{ error }}</p>
-		</base-popup>
-		<div class="list-page">
-			<div v-if="isLoading">
-				<base-spinner></base-spinner>
-			</div>
-			<transition-group
-				tag="ul"
-				name="offers-list"
-				v-else-if="hasOffers && !isLoading"
-				class="post-list"
-			>
-				<OfferItem
-					v-for="offer in filteredOffers"
-					:key="offer.id"
-					:id="offer.id"
-					:uid="offer.uid"
-					:thumbnail="offer.thumbnail"
-					:rate="offer.price"
-					:areas="offer.areas"
-					:date="offer.date"
-					:title="offer.title"
-					:description="offer.description"
-				/>
-			</transition-group>
-			<h3 v-else>
-				Никто пока не добавил объявлений. Станьте первым, добавив своё!
-			</h3>
+	<base-popup :show="!!error" title="Данные не подгрузились" @close="gotIt">
+		<p>{{ error }}</p>
+	</base-popup>
 
-			<section class="side-filter">
-				<base-card>
-					<div class="controls">
-						<button
-							class="base-button base-button--bright"
-							@click="loadOffers(true)"
-						>
-							<font-awesome icon="sync-alt" />
-						</button>
-						<base-button
-							mode="standard"
-							v-if="isLoggedIn && !isLoading"
-							link
-							to="/new-offer"
-							>Создать</base-button
-						>
-					</div>
-				</base-card>
-				<offer-filter @change-filter="setFilters"></offer-filter>
-			</section>
-		</div>
+	<div v-if="isLoading">
+		<base-spinner></base-spinner>
 	</div>
+	<transition-group
+		tag="div"
+		name="offers-list"
+		v-else-if="hasOffers && !isLoading"
+		class="post-list"
+	>
+		<OfferItem
+			v-for="offer in filteredOffers"
+			:key="offer.id"
+			:id="offer.id"
+			:uid="offer.uid"
+			:thumbnail="offer.thumbnail"
+			:rate="offer.price"
+			:areas="offer.areas"
+			:date="offer.date"
+			:title="offer.title"
+			:description="offer.description"
+		/>
+
+		<section class="side-filter">
+			<base-card>
+				<div class="controls">
+					<button
+						class="base-button base-button--bright"
+						@click="loadOffers(true)"
+					>
+						<font-awesome icon="sync-alt" />
+					</button>
+					<base-button
+						mode="standard"
+						v-if="isLoggedIn && !isLoading"
+						link
+						to="/new-offer"
+						>Создать</base-button
+					>
+				</div>
+			</base-card>
+			<offer-filter @change-filter="setFilters"></offer-filter>
+		</section>
+	</transition-group>
+	<h3 v-else>
+		Никто пока не добавил объявлений. Станьте первым, добавив своё!
+	</h3>
 </template>
 
 <script>
@@ -164,35 +161,37 @@ export default {
 
 <style lang="scss" scoped>
 .side-filter {
+	grid-column-start: 3;
+	grid-row-start: 1;
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
+
+	@media (max-width: $tablet) {
+		grid-column-start: 2;
+	}
+
+	@media (max-width: $mobile) {
+		grid-column-start: 1;
+	}
 }
-.list-page {
-	display: grid;
-	grid-template-columns: 3fr 1fr;
-	grid-column-gap: 50px;
-	max-width: 1440px;
-	margin: 0 auto;
-	padding: 30px 20px;
-}
+
 .post-list {
-	margin: 0 auto;
 	display: grid;
 	box-sizing: border-box;
 	grid-template-columns: repeat(3, 1fr);
 	grid-gap: 30px;
-	padding: 0;
 
-	@media (max-width: 1200px) {
+	@media (max-width: $tablet) {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
-	@media (max-width: 767px) {
+	@media (max-width: $mobile) {
 		grid-template-columns: 1fr;
 		grid-gap: 20px;
 	}
 }
+
 .offers-list-enter-from {
 	opacity: 0;
 	transform: translateY(-30px);

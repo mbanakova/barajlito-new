@@ -5,32 +5,32 @@
 		<base-popup :show="!!error" title="Данные не подгрузились" @close="gotIt">
 			<p>{{ error }}</p>
 		</base-popup>
-		<div class="list-page">
-			<div v-if="isLoading">
-				<base-spinner></base-spinner>
-			</div>
-			<ul v-else-if="hasOffers" class="post-list">
-				<OfferItem
-					v-for="offer in myOffers"
-					:key="offer.id"
-					:id="offer.id"
-					:uid="offer.uid"
-					:thumbnail="offer.thumbnail"
-					:rate="offer.price"
-					:areas="offer.areas"
-					:date="offer.date"
-					:title="offer.title"
-					:description="offer.description"
-				/>
-			</ul>
-			<div v-else>
-				<h3>У вас пока нет ни одного объявления!</h3>
-				<router-link to="/new-offer" class="base-button base-button--bright"
-					>Создать</router-link
-				>
-			</div>
 
-			<section class="side-filter">
+		<div v-if="isLoading">
+			<base-spinner></base-spinner>
+		</div>
+		<ul v-else-if="hasOffers" class="post-list">
+			<OfferItem
+				v-for="offer in myOffers"
+				:key="offer.id"
+				:id="offer.id"
+				:uid="offer.uid"
+				:thumbnail="offer.thumbnail"
+				:rate="offer.price"
+				:areas="offer.areas"
+				:date="offer.date"
+				:title="offer.title"
+				:description="offer.description"
+			/>
+		</ul>
+		<div v-else>
+			<h3>У вас пока нет ни одного объявления!</h3>
+			<router-link to="/new-offer" class="base-button base-button--bright"
+				>Создать</router-link
+			>
+		</div>
+
+		<!-- <section class="side-filter">
 				<base-card>
 					<div class="controls">
 						<button
@@ -49,20 +49,19 @@
 					</div>
 				</base-card>
 				<offer-filter @change-filter="setFilters"></offer-filter>
-			</section>
-		</div>
+			</section> -->
 	</main>
 </template>
 
 <script>
 import OfferItem from "@/components/offers/OfferItem";
-import OfferFilter from "@/components/offers/OfferFilter.vue";
+// import OfferFilter from "@/components/offers/OfferFilter.vue";
 import { mapGetters } from "vuex";
 
 export default {
 	components: {
 		OfferItem,
-		OfferFilter,
+		// OfferFilter,
 	},
 	data() {
 		return {
@@ -181,14 +180,6 @@ export default {
 	gap: 20px;
 }
 
-.list-page {
-	display: grid;
-	grid-template-columns: 3fr 1fr;
-	grid-column-gap: 50px;
-	max-width: 1440px;
-	margin: 0 auto;
-	padding: 30px 20px;
-}
 .post-list {
 	margin: 0 auto;
 	display: grid;
@@ -197,11 +188,11 @@ export default {
 	grid-gap: 30px;
 	padding: 0;
 
-	@media (max-width: 1200px) {
+	@media (max-width: $tablet) {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
-	@media (max-width: 767px) {
+	@media (max-width: $mobile) {
 		grid-template-columns: 1fr;
 		grid-gap: 20px;
 	}

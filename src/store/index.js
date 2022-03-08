@@ -6,7 +6,8 @@ import requests from './requests'
 
 export default createStore({
   state: {
-    error: null
+    error: null,
+    burger: false
   },
   mutations: {
     setError(state, error) {
@@ -14,13 +15,20 @@ export default createStore({
     },
     clearError(state) {
       state.error = null
+    },
+    burgerToggle(state) {
+      state.burger = !state.burger
     }
   },
   actions: {
+
   },
   getters: {
     error(state) {
       return state.error
+    },
+    burger(state) {
+      return state.burger
     }
   },
   modules: {

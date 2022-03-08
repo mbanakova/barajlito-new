@@ -1,59 +1,55 @@
 <template>
-	<div class="wrapper offer__page">
-		<section class="offer__img">
-			<base-card>
-				<div class="offer__thumbnail">
-					<img :src="thumbnail" :alt="title" />
-				</div>
-			</base-card>
-		</section>
-		<section class="offer__info">
-			<base-card>
-				<h2>{{ title }}</h2>
-				<h3>{{ price }} ₽</h3>
-				<p>{{ description }}</p>
-				<h3 class="offer__owner">User: {{ owner }}</h3>
-				<h3 class="offer__date">{{ date }}</h3>
-				<div class="badges__list">
-					<base-badge
-						v-for="area in areas"
-						:key="area"
-						:type="area"
-						:badgeTitle="area"
-					></base-badge>
-				</div>
-			</base-card>
-		</section>
-		<section class="offer__chat">
-			<base-card v-if="isMyOffer">
-				<router-link :to="editOffer" class="edit"
-					>Редактировать <font-awesome icon="edit"
-				/></router-link>
-			</base-card>
-			<base-card v-else>
-				<h2>Написать владельцу:</h2>
-				<form @submit.prevent="submitForm">
-					<input
-						type="text"
-						id="userName"
-						placeholder="Укажите своё имя"
-						v-model="userName.val"
-						:class="{ error: !formIsValid }"
-						@blur="clearValidity('userName')"
-					/>
-					<textarea
-						name="message"
-						id="message"
-						rows="5"
-						v-model="message.val"
-						:class="{ error: !formIsValid }"
-						@blur="clearValidity('message')"
-					></textarea>
-					<p v-if="!formIsValid">Заполните форму перед отправкой</p>
-					<base-button mode="bright" class="submit">Отправить</base-button>
-				</form>
-			</base-card>
-		</section>
+	<div class="offer__page">
+		<base-card class="offer__img">
+			<div class="offer__thumbnail">
+				<img :src="thumbnail" :alt="title" />
+			</div>
+		</base-card>
+
+		<base-card class="offer__info">
+			<h2>{{ title }}</h2>
+			<h3>{{ price }} ₽</h3>
+			<p>{{ description }}</p>
+			<h3 class="offer__owner">User: {{ owner }}</h3>
+			<h3 class="offer__date">{{ date }}</h3>
+			<div class="badges__list">
+				<base-badge
+					v-for="area in areas"
+					:key="area"
+					:type="area"
+					:badgeTitle="area"
+				></base-badge>
+			</div>
+		</base-card>
+
+		<base-card v-if="isMyOffer" class="offer__chat">
+			<router-link :to="editOffer" class="edit"
+				>Редактировать <font-awesome icon="edit"
+			/></router-link>
+		</base-card>
+		<base-card v-else>
+			<h2>Написать владельцу:</h2>
+			<form @submit.prevent="submitForm">
+				<input
+					type="text"
+					id="userName"
+					placeholder="Укажите своё имя"
+					v-model="userName.val"
+					:class="{ error: !formIsValid }"
+					@blur="clearValidity('userName')"
+				/>
+				<textarea
+					name="message"
+					id="message"
+					rows="5"
+					v-model="message.val"
+					:class="{ error: !formIsValid }"
+					@blur="clearValidity('message')"
+				></textarea>
+				<p v-if="!formIsValid">Заполните форму перед отправкой</p>
+				<base-button mode="bright" class="submit">Отправить</base-button>
+			</form>
+		</base-card>
 	</div>
 </template>
 
@@ -154,6 +150,11 @@ export default {
 	grid-template-columns: 2fr 3fr;
 	grid-template-areas: "img info" "img chat";
 	grid-gap: 30px;
+
+	@media (max-width: $mobile) {
+		grid-template-columns: 1fr;
+		grid-template-areas: "img" "info" "chat";
+	}
 }
 
 .offer__img {
@@ -174,6 +175,10 @@ export default {
 	display: block;
 	width: 100%;
 	height: auto;
+}
+
+.offer__owner {
+	word-break: break-word;
 }
 .offer__date {
 	color: #c5c5c5;

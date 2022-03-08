@@ -63,7 +63,7 @@ export default {
 			if (this.mode === "login") {
 				return "Впервые на сайте?";
 			} else {
-				return "Есть аккаунт";
+				return "Есть аккаунт?";
 			}
 		},
 	},
@@ -112,11 +112,18 @@ export default {
 	display: flex;
 	flex-direction: column;
 }
+
+body {
+	background-color: #171e26;
+}
+
 .container {
 	position: relative;
-
 	display: flex;
 	flex-direction: column;
+	@media (max-width: $tablet) {
+		padding-top: 60px;
+	}
 }
 
 .wrapper {
@@ -152,5 +159,19 @@ h1 {
 
 input {
 	padding: 5px 10px;
+}
+
+p {
+	font-size: 16px;
+	line-height: 21px;
+
+	& button {
+		color: $white;
+		border: none;
+		background-color: transparent;
+		font-size: 16px;
+		line-height: 21px;
+		text-decoration: underline;
+	}
 }
 </style>
