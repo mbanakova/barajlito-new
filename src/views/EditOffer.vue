@@ -13,15 +13,23 @@
 						@blur="clearValidity('title')"
 					/>
 				</div>
-				<div class="form-control" :class="{ invalid: !thumbnail.isValid }">
+				<div class="form-control">
+					<label for="title">old img</label>
 					<input
 						type="text"
 						name=""
 						id="thumbnail"
 						v-model.trim="this.editedOffer.thumbnail"
-						@blur="clearValidity('thumbnail')"
 					/>
-					<p v-if="!thumbnail.isValid">Добавьте фото</p>
+				</div>
+				<div class="form-control">
+					<label for="title">new img (optional)</label>
+					<input
+						type="file"
+						ref="fileInput"
+						accept="image/*"
+						@change="onFileSelected"
+					/>
 				</div>
 				<div class="form-control">
 					<label for="description">description</label>
@@ -202,10 +210,7 @@ export default {
 				val: "",
 				isValid: true,
 			},
-			thumbnail: {
-				val: "",
-				isValid: true,
-			},
+
 			description: {
 				val: "",
 				isValid: true,
@@ -230,9 +235,28 @@ export default {
 	computed: {
 		...mapGetters({
 			uid: ["userId"],
+			thumbnail: ["getThumbnail"],
 		}),
+		checkThumbnail() {
+			let url;
+			if (!this.thumbnail) {
+				url = this.editedOffer.thumbnail;
+			} else {
+				url = this.thumbnail;
+			}
+			return url;
+		},
 	},
 	methods: {
+		async onFileSelected(event) {
+			let thumbnail = event.target.files[0];
+
+			try {
+				await this.$store.dispatch("loadThumbnail", thumbnail);
+			} catch (error) {
+				this.error = error.message;
+			}
+		},
 		clearValidity(input) {
 			this[input].isValid = true;
 		},
@@ -242,10 +266,7 @@ export default {
 				this.title.isValid = false;
 				this.formIsValid = false;
 			}
-			if (this.thumbnail.val === "") {
-				this.thumbnail.isValid = false;
-				this.formIsValid = false;
-			}
+
 			if (this.description.val === "") {
 				this.description.isValid = false;
 				this.formIsValid = false;
@@ -269,7 +290,7 @@ export default {
 			const editedOffer = {
 				uid: this.uid,
 				offerId: this.editedOffer.id,
-				thumbnail: this.editedOffer.thumbnail,
+				thumbnail: this.checkThumbnail,
 				date: new Date().toLocaleDateString(),
 				title: this.editedOffer.title,
 				description: this.editedOffer.description,
@@ -313,8 +334,19 @@ p {
 	grid-template-columns: repeat(3, 1fr);
 	grid-column-gap: 50px;
 
+	@media (max-width: $mobile) {
+		grid-template-columns: repeat(2, 1fr);
+		grid-column-gap: 20px;
+	}
+
 	& h3 {
+		margin-left: 0;
 		grid-column: span 3;
+		text-align: left;
+
+		@media (max-width: $mobile) {
+			grid-column: span 2;
+		}
 	}
 }
 
@@ -326,5 +358,10 @@ p {
 	display: flex;
 	gap: 20px;
 	align-items: center;
+
+	@media (max-width: $mobile) {
+		flex-direction: column;
+		align-items: flex-start;
+	}
 }
 </style>
