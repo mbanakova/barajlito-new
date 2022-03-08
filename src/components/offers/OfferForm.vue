@@ -9,16 +9,13 @@
 				@blur="clearValidity('title')"
 			/>
 		</div>
-		<div class="form-control" :class="{ invalid: !thumbnail.isValid }">
+		<div class="form-control">
 			<input
-				type="text"
-				name=""
-				placeholder="Ссылка на фото (пока так)"
-				id="thumbnail"
-				v-model.trim="thumbnail.val"
-				@blur="clearValidity('thumbnail')"
+				type="file"
+				ref="fileInput"
+				accept="image/*"
+				@change="onFileSelected"
 			/>
-			<p v-if="!thumbnail.isValid">Добавьте фото</p>
 		</div>
 		<div class="form-control" :class="{ invalid: !description.isValid }">
 			<textarea
@@ -193,10 +190,7 @@ export default {
 				val: "",
 				isValid: true,
 			},
-			thumbnail: {
-				val: "",
-				isValid: true,
-			},
+
 			description: {
 				val: "",
 				isValid: true,
@@ -215,9 +209,19 @@ export default {
 	computed: {
 		...mapGetters({
 			uid: ["userId"],
+			thumbnail: ["getThumbnail"],
 		}),
 	},
 	methods: {
+		async onFileSelected(event) {
+			let thumbnail = event.target.files[0];
+
+			try {
+				await this.$store.dispatch("loadThumbnail", thumbnail);
+			} catch (error) {
+				this.error = error.message;
+			}
+		},
 		clearValidity(input) {
 			this[input].isValid = true;
 		},
@@ -225,10 +229,6 @@ export default {
 			this.formIsValid = true;
 			if (this.title.val === "") {
 				this.title.isValid = false;
-				this.formIsValid = false;
-			}
-			if (this.thumbnail.val === "") {
-				this.thumbnail.isValid = false;
 				this.formIsValid = false;
 			}
 			if (this.description.val === "") {
@@ -255,7 +255,7 @@ export default {
 				// when Profile is ready add authorName
 				uid: this.uid,
 				date: new Date().toLocaleDateString(),
-				thumbnail: this.thumbnail.val,
+				thumbnail: this.thumbnail,
 				title: this.title.val,
 				description: this.description.val,
 				areas: this.areas.val,

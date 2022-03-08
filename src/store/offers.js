@@ -1,5 +1,5 @@
-// import firebase from "firebase";
-
+import firebase from "firebase/app";
+import "firebase/storage";
 // const token = localStorage.getItem('token');
 export default {
   state: {
@@ -44,6 +44,26 @@ export default {
     ]
   },
   actions: {
+    async loadThumbnail(context, thumbnail) {
+      let img = thumbnail.name;
+      let storageRef = firebase.storage().ref(`thumbnails/${img}`);
+      let uploadTask = storageRef.put(thumbnail);
+
+      uploadTask.on(
+        "state_changed",
+        snapshot => {
+          console.log(snapshot);
+        },
+        error => {
+          console.log(error);
+        },
+        () => {
+          uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+            context.commit('loadThumbnail', downloadURL)
+          });
+        },
+      );
+    },
     async registerOffer(context, formData) {
       const offerData = {
         uid: formData.uid,
@@ -136,6 +156,9 @@ export default {
     }
   },
   mutations: {
+    loadThumbnail(state, thumbnailUrl) {
+      state.offers.thumbnail = thumbnailUrl
+    },
     registerOffer(state, payload) {
       state.offers.unshift(payload);
     },
@@ -164,6 +187,9 @@ export default {
       }
       const currentTimeStamp = new Date().getTime();
       return (currentTimeStamp - lastFetch) / 1000 > 60;
-    }
+    },
+    getThumbnail(state) {
+      return state.offers.thumbnail
+    },
   },
 }
