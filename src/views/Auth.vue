@@ -121,6 +121,8 @@ body {
 	position: relative;
 	display: flex;
 	flex-direction: column;
+	height: 100%;
+
 	@media (max-width: $tablet) {
 		padding-top: 60px;
 	}

@@ -3,7 +3,7 @@
 		<canvas id="#canvas"></canvas>
 		<div class="error-page">
 			<h1>Oops, something went wrong!</h1>
-			<div class="container">
+			<div class="moon__container">
 				<div class="four four1">4</div>
 				<a
 					@mouseenter="showWarning = !showWarning"
@@ -143,6 +143,8 @@ body {
 	position: relative;
 	display: flex;
 	flex-direction: column;
+	height: 100%;
+	padding-top: 60px;
 }
 
 .error-page {
@@ -182,7 +184,7 @@ h1 {
 .error-page a:active {
 	color: #ade4ff;
 }
-.container {
+.moon__container {
 	position: relative;
 	display: flex;
 	flex-direction: row;
