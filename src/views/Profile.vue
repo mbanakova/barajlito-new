@@ -5,18 +5,44 @@
 		</base-popup>
 
 		<base-card class="profile__current">
-			<h1>Profile</h1>
+			<div class="profile__auth-data">
+				<h4>Login data:</h4>
+				<p>{{ currentData.email }}</p>
+				<p>{{ currentData.password }}</p>
+			</div>
 			<div class="profile__img">
 				<img :src="avatar" />
 			</div>
 			<div class="profile__changable">
-				<p>{{ currentData.firstName }}</p>
-				<p>{{ currentData.lastName }}</p>
-				<p>{{ currentData.userName }}</p>
-			</div>
-			<div class="profile__auth-data">
-				<p>{{ currentData.email }}</p>
-				<p>{{ currentData.password }}</p>
+				<p>
+					Пользователь: {{ currentData.firstName }} {{ currentData.lastName }}
+				</p>
+				<p>Username: {{ currentData.userName }}</p>
+				<h4>Способы связаться:</h4>
+				<div class="social__wrap">
+					<font-awesome icon="paper-plane" /><a
+						:href="currentData.telegram"
+						target="_blank"
+						>{{ currentData.telegram }}</a
+					>
+				</div>
+				<div class="social__wrap">
+					<font-awesome icon="comment" /><a
+						:href="currentData.whatsapp"
+						target="_blank"
+						>{{ currentData.whatsapp }}</a
+					>
+				</div>
+				<div class="social__wrap">
+					<font-awesome icon="phone" /><a :href="call">{{
+						currentData.phone
+					}}</a>
+				</div>
+				<div class="social__wrap">
+					<font-awesome icon="envelope" /><a :href="mail">{{
+						currentData.eMail
+					}}</a>
+				</div>
 			</div>
 		</base-card>
 
@@ -54,9 +80,10 @@
 					</div>
 					<div class="input__wrap">
 						<font-awesome icon="phone" /><input
-							type="tel"
+							type="text"
 							placeholder="телефон"
-							v-model.trim="phone"
+							v-model="phone"
+							v-mask="'0(000)000-00-00'"
 						/>
 					</div>
 					<div class="input__wrap">
@@ -87,6 +114,10 @@ export default {
 			firstName: "",
 			lastName: "",
 			userName: "",
+			telegram: null,
+			whatsapp: null,
+			phone: null,
+			eMail: null,
 			error: null,
 		};
 	},
@@ -100,6 +131,12 @@ export default {
 			token: ["token"],
 			avatar: ["getAvatar"],
 		}),
+		call() {
+			return `tel:${this.currentData.phone}`;
+		},
+		mail() {
+			return `mailto:${this.currentData.eMail}`;
+		},
 	},
 	methods: {
 		async onFileSelected(event) {
@@ -122,6 +159,10 @@ export default {
 				lastName: this.lastName,
 				userName: this.userName,
 				avatar: this.avatar,
+				telegram: this.telegram,
+				whatsapp: this.whatsapp,
+				phone: this.phone,
+				eMail: this.eMail,
 			};
 			try {
 				await this.$store.dispatch("updateProfile", newData);
@@ -159,9 +200,8 @@ export default {
 	grid-template-columns: repeat(2, 1fr);
 }
 
-.profile__auth-data {
+.profile__changable {
 	grid-column: span 2;
-	text-align: center;
 }
 
 .profile__img {
@@ -169,11 +209,13 @@ export default {
 	border-radius: 6px;
 	border: 3px solid $grey;
 	padding: 10px;
+	display: flex;
+	margin-left: auto;
 
 	& img {
+		object-fit: contain;
+		object-position: center;
 		width: 100%;
-		height: auto;
-		display: block;
 	}
 }
 
@@ -201,5 +243,13 @@ h4 {
 }
 input {
 	padding: 5px 10px;
+}
+
+.social__wrap {
+	margin-bottom: 10px;
+
+	& svg {
+		margin-right: 20px;
+	}
 }
 </style>

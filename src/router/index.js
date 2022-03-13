@@ -2,13 +2,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import store from '../store/index.js'
 import Home from '../views/Home.vue'
+import Profile from '../views/Profile'
 const Auth = () => import('../views/Auth')
 const Offers = () => import('../views/Offers')
 const MyOffers = () => import('../views/MyOffers')
 const NewOffer = () => import('../views/NewOffer')
 const EditOffer = () => import('../views/EditOffer')
 const Requests = () => import('../views/Requests')
-const Profile = () => import('../views/Profile')
 const NotFound = () => import('../views/NotFound')
 const OfferDetail = () => import('../views/OfferDetail')
 

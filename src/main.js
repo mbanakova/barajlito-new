@@ -1,4 +1,5 @@
 import { createApp, defineAsyncComponent } from 'vue'
+import VueMask from '@devindex/vue-mask';
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -28,7 +29,7 @@ firebase.initializeApp(firebaseConfig);
 const app = createApp(App)
 app.use(store)
 app.use(router)
-
+app.use(VueMask);
 app.component('font-awesome', FontAwesome)
 app.component('base-popup', BasePopup)
 app.component('base-button', BaseButton)

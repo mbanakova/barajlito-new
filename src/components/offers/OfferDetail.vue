@@ -7,11 +7,13 @@
 		</base-card>
 
 		<base-card class="offer__info">
-			<h2>{{ title }}</h2>
+			<div class="offer__top">
+				<h2>{{ title }}</h2>
+				<h3 class="offer__date">{{ date }}</h3>
+			</div>
 			<h3>{{ price }} ₽</h3>
 			<p class="offer__description">{{ description }}</p>
-			<h3 class="offer__owner">Продаёт: {{ owner }}</h3>
-			<h3 class="offer__date">{{ date }}</h3>
+
 			<div class="badges__list">
 				<base-badge
 					v-for="area in areas"
@@ -20,6 +22,41 @@
 					:badgeTitle="area"
 				></base-badge>
 			</div>
+			<h3 class="offer__owner">Продаёт: {{ owner ? owner : ownerId }}</h3>
+
+			<div v-if="isLoading">
+				<base-spinner></base-spinner>
+			</div>
+			<ul class="contacts" v-else-if="contacts">
+				<li v-if="contacts.telegram">
+					<a
+						:href="contacts.telegram"
+						target="_blank"
+						:title="contacts.telegram"
+					>
+						<font-awesome icon="paper-plane"
+					/></a>
+				</li>
+				<li v-if="contacts.whatsapp">
+					<a
+						:href="contacts.whatsapp"
+						target="_blank"
+						:title="contacts.whatsapp"
+					>
+						<font-awesome icon="comment"
+					/></a>
+				</li>
+				<li v-if="contacts.phone">
+					<a :href="call" target="_blank" :title="contacts.call"
+						><font-awesome icon="phone"
+					/></a>
+				</li>
+				<li v-if="contacts.email">
+					<a :href="mail" target="_blank" :title="contacts.mail"
+						><font-awesome icon="envelope"
+					/></a>
+				</li>
+			</ul>
 		</base-card>
 
 		<base-card v-if="isMyOffer" class="offer__chat">
@@ -28,7 +65,7 @@
 			/></router-link>
 		</base-card>
 		<base-card v-else>
-			<h2>Написать владельцу:</h2>
+			<h2>Связаться с {{ owner ? owner : "владельцем" }}:</h2>
 			<form @submit.prevent="submitForm">
 				<input
 					type="text"
@@ -71,6 +108,7 @@ export default {
 				isValid: true,
 			},
 			formIsValid: true,
+			isLoading: false,
 		};
 	},
 	created() {
@@ -79,11 +117,13 @@ export default {
 		);
 
 		this.ownerId = this.selectedOffer.uid;
+		this.loadContacts();
 	},
 	computed: {
 		...mapGetters({
 			uid: ["userId"],
 			username: ["getUsername"],
+			contacts: ["getContacts"],
 		}),
 		editOffer() {
 			return "/edit/" + this.selectedOffer.id;
@@ -95,13 +135,7 @@ export default {
 			return this.selectedOffer.title;
 		},
 		owner() {
-			let username = "";
-			if (this.selectedOffer.owner !== "") {
-				username = this.selectedOffer.owner;
-			} else {
-				username = this.selectedOffer.uid;
-			}
-			return username;
+			return this.selectedOffer.owner;
 		},
 		thumbnail() {
 			return this.selectedOffer.thumbnail;
@@ -123,8 +157,23 @@ export default {
 		isMyOffer() {
 			return this.selectedOffer.uid === this.uid;
 		},
+		call() {
+			return `tel:${this.contacts.phone}`;
+		},
+		mail() {
+			return `mailto:${this.contacts.email}`;
+		},
 	},
 	methods: {
+		async loadContacts() {
+			this.isLoading = true;
+			try {
+				await this.$store.dispatch("loadContacts", this.selectedOffer.uid);
+			} catch (error) {
+				this.error = error.message;
+			}
+			this.isLoading = false;
+		},
 		submitForm() {
 			this.formIsValid = true;
 			if (this.message.val === "" || this.userName.val === "") {
@@ -170,6 +219,19 @@ export default {
 .offer__info {
 	grid-area: info;
 }
+
+.offer__top {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+	align-items: center;
+	gap: 30px;
+	flex-wrap: wrap;
+	& h2,
+	& h3 {
+		margin: 0;
+	}
+}
 .offer__chat {
 	grid-area: chat;
 }
@@ -185,7 +247,7 @@ export default {
 }
 
 .offer__description {
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 }
 
 .offer__owner {
@@ -202,7 +264,9 @@ export default {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
+	margin-bottom: 20px;
 }
+
 form {
 	display: flex;
 	flex-direction: column;
@@ -260,5 +324,23 @@ p {
 .error {
 	border-color: $accent;
 	background-color: lighten($accent, 45%);
+}
+
+.contacts {
+	display: flex;
+	gap: 20px;
+
+	& a {
+		color: $blue;
+		transition: $tr;
+
+		&:hover {
+			color: $bright;
+		}
+	}
+
+	& svg {
+		fill: $blue;
+	}
 }
 </style>

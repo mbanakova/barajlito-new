@@ -42,7 +42,11 @@ export default {
         firstName: payload.firstName,
         lastName: payload.lastName,
         userName: payload.userName,
-        avatar: payload.avatar
+        avatar: payload.avatar,
+        telegram: payload.telegram,
+        whatsapp: payload.whatsapp,
+        phone: payload.phone,
+        eMail: payload.eMail,
       }
       let token = context.getters.token;
       let uid = context.getters.userId;
@@ -80,6 +84,10 @@ export default {
         lastName: responseData.info.lastName,
         userName: responseData.info.userName,
         avatar: responseData.info.avatar,
+        telegram: responseData.info.telegram,
+        whatsapp: responseData.info.whatsapp,
+        phone: responseData.info.phone,
+        eMail: responseData.info.eMail,
       }
 
       context.commit('setProfileData', profileData)

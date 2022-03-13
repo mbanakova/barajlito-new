@@ -156,6 +156,28 @@ export default {
 
       // данные для OffersList.vue, обновляют список из firebase
       context.commit('setOffers', offers)
+    },
+
+
+    async loadContacts(context, owner) {
+      let token = context.getters.token;
+      const response = await fetch(`https://barahlito-new-default-rtdb.firebaseio.com/users/${owner}/info.json?auth=${token}`);
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        const error = new Error(responseData.message);
+        throw error;
+      }
+
+      const contacts = {
+        telegram: responseData.telegram,
+        whatsapp: responseData.whatsapp,
+        phone: responseData.phone,
+        email: responseData.eMail,
+      };
+
+      context.commit('loadContacts', contacts)
     }
   },
   mutations: {
@@ -170,6 +192,9 @@ export default {
     },
     setOffers(state, fetchedOffers) {
       state.offers = fetchedOffers;
+    },
+    loadContacts(state, contacts) {
+      state.contacts = contacts;
     }
   },
   getters: {
@@ -193,6 +218,9 @@ export default {
     },
     getThumbnail(state) {
       return state.offers.thumbnail
+    },
+    getContacts(state) {
+      return state.contacts
     },
   },
 }
