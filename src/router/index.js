@@ -1,15 +1,16 @@
+
 import { createRouter, createWebHistory } from 'vue-router'
 import store from '../store/index.js'
 import Home from '../views/Home.vue'
-import MyOffers from '../views/MyOffers'
-import Offers from '../views/Offers'
-import OfferDetail from '../views/OfferDetail'
-import NewOffer from '../views/NewOffer'
-import EditOffer from '../views/EditOffer'
-import Requests from '../views/Requests'
-import Profile from '../views/Profile'
-import Auth from '../views/Auth'
-import NotFound from '../views/NotFound'
+const Auth = () => import('../views/Auth')
+const Offers = () => import('../views/Offers')
+const MyOffers = () => import('../views/MyOffers')
+const NewOffer = () => import('../views/NewOffer')
+const EditOffer = () => import('../views/EditOffer')
+const Requests = () => import('../views/Requests')
+const Profile = () => import('../views/Profile')
+const NotFound = () => import('../views/NotFound')
+const OfferDetail = () => import('../views/OfferDetail')
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
@@ -70,9 +71,7 @@ const router = createRouter({
     },
     {
       path: '/:notFound(.*)', // .* = any other text
-
       component: NotFound
-
     }
   ]
 });

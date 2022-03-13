@@ -9,8 +9,8 @@
 		<base-card class="offer__info">
 			<h2>{{ title }}</h2>
 			<h3>{{ price }} ₽</h3>
-			<p>{{ description }}</p>
-			<h3 class="offer__owner">User: {{ owner }}</h3>
+			<p class="offer__description">{{ description }}</p>
+			<h3 class="offer__owner">Продаёт: {{ owner }}</h3>
 			<h3 class="offer__date">{{ date }}</h3>
 			<div class="badges__list">
 				<base-badge
@@ -175,6 +175,10 @@ export default {
 	display: block;
 	width: 100%;
 	height: auto;
+}
+
+.offer__description {
+	margin-bottom: 10px;
 }
 
 .offer__owner {

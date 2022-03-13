@@ -1,8 +1,8 @@
-import { createApp } from 'vue'
+import { createApp, defineAsyncComponent } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import BasePopup from './components/UI/BasePopup'
+// import BasePopup from './components/UI/BasePopup'
 import BaseButton from './components/UI/BaseButton'
 import BaseCard from './components/UI/BaseCard'
 import BaseSpinner from './components/UI/BaseSpinner'
@@ -10,6 +10,8 @@ import BaseBadge from './components/UI/BaseBadge'
 import FontAwesome from "./assets/fontawesome";
 // import './assets/global.scss';
 import firebase from "firebase/app";
+
+const BasePopup = defineAsyncComponent(() => import('./components/UI/BasePopup'))
 
 const firebaseConfig = {
   apiKey: "AIzaSyAifkgZ7dSMH29s0Fln77zehXTqvkHQaro",
