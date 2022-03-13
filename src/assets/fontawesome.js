@@ -17,6 +17,11 @@ import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import { faDoorOpen } from "@fortawesome/free-solid-svg-icons";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import { faDolly } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+
 
 
 library.add(faComments);
@@ -36,5 +41,10 @@ library.add(faUserEdit);
 library.add(faDoorOpen);
 library.add(faList);
 library.add(faDolly);
+library.add(faEnvelope);
+library.add(faPhone);
+library.add(faComment);
+library.add(faPaperPlane);
+
 
 export default FontAwesomeIcon;

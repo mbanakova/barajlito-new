@@ -210,7 +210,6 @@ export default {
 				val: "",
 				isValid: true,
 			},
-
 			description: {
 				val: "",
 				isValid: true,
@@ -236,7 +235,17 @@ export default {
 		...mapGetters({
 			uid: ["userId"],
 			thumbnail: ["getThumbnail"],
+			username: ["getUsername"],
 		}),
+		getOwner() {
+			let owner = "";
+			if (this.username && this.username !== "") {
+				owner = this.username;
+			} else {
+				owner = this.uid;
+			}
+			return owner;
+		},
 		checkThumbnail() {
 			let url;
 			if (!this.thumbnail) {
@@ -266,7 +275,6 @@ export default {
 				this.title.isValid = false;
 				this.formIsValid = false;
 			}
-
 			if (this.description.val === "") {
 				this.description.isValid = false;
 				this.formIsValid = false;
@@ -281,14 +289,9 @@ export default {
 			}
 		},
 		async submitEditedForm() {
-			// this.validateForm();
-
-			// if (!this.formIsValid) {
-			// 	return;
-			// }
-
 			const editedOffer = {
 				uid: this.uid,
+				owner: this.getOwner,
 				offerId: this.editedOffer.id,
 				thumbnail: this.checkThumbnail,
 				date: new Date().toLocaleDateString(),

@@ -83,6 +83,7 @@ export default {
 	computed: {
 		...mapGetters({
 			uid: ["userId"],
+			username: ["getUsername"],
 		}),
 		editOffer() {
 			return "/edit/" + this.selectedOffer.id;
@@ -94,7 +95,13 @@ export default {
 			return this.selectedOffer.title;
 		},
 		owner() {
-			return this.selectedOffer.uid;
+			let username = "";
+			if (this.selectedOffer.owner !== "") {
+				username = this.selectedOffer.owner;
+			} else {
+				username = this.selectedOffer.uid;
+			}
+			return username;
 		},
 		thumbnail() {
 			return this.selectedOffer.thumbnail;

@@ -36,6 +36,37 @@
 					placeholder="Имя для отображения"
 					v-model.trim="userName"
 				/>
+				<div class="profile__contacts">
+					<h4>Контакты:</h4>
+					<div class="input__wrap">
+						<font-awesome icon="paper-plane" /><input
+							type="text"
+							placeholder="telegram"
+							v-model.trim="telegram"
+						/>
+					</div>
+					<div class="input__wrap">
+						<font-awesome icon="comment" /><input
+							type="text"
+							placeholder="whatsapp"
+							v-model.trim="whatsapp"
+						/>
+					</div>
+					<div class="input__wrap">
+						<font-awesome icon="phone" /><input
+							type="tel"
+							placeholder="телефон"
+							v-model.trim="phone"
+						/>
+					</div>
+					<div class="input__wrap">
+						<font-awesome icon="envelope" /><input
+							type="email"
+							placeholder="почта"
+							v-model.trim="eMail"
+						/>
+					</div>
+				</div>
 				<button type="submit" class="base-button">Сохранить</button>
 			</form>
 		</base-card>
@@ -115,7 +146,6 @@ export default {
 <style lang="scss" scoped>
 .profile {
 	display: grid;
-
 	grid-template-columns: repeat(2, 1fr);
 	grid-gap: 40px;
 
@@ -146,11 +176,28 @@ export default {
 		display: block;
 	}
 }
+
 form {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+
 	gap: 20px;
+}
+
+.profile__contacts {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+h4 {
+	align-self: flex-start;
+	margin: 0;
+}
+
+.input__wrap {
+	display: flex;
+	align-items: center;
+	gap: 10px;
 }
 input {
 	padding: 5px 10px;

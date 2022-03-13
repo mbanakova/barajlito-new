@@ -67,6 +67,7 @@ export default {
     async registerOffer(context, formData) {
       const offerData = {
         uid: formData.uid,
+        owner: formData.owner,
         date: formData.date,
         thumbnail: formData.thumbnail,
         title: formData.title,
@@ -95,6 +96,7 @@ export default {
     async editOffer(context, formData) {
       const offerData = {
         uid: formData.uid,
+        owner: formData.owner,
         date: formData.date,
         thumbnail: formData.thumbnail,
         title: formData.title,
@@ -141,6 +143,7 @@ export default {
         const offer = {
           id: key,
           uid: responseData[key].uid,
+          owner: responseData[key].owner,
           date: responseData[key].date,
           thumbnail: responseData[key].thumbnail,
           title: responseData[key].title,

@@ -190,7 +190,6 @@ export default {
 				val: "",
 				isValid: true,
 			},
-
 			description: {
 				val: "",
 				isValid: true,
@@ -210,7 +209,17 @@ export default {
 		...mapGetters({
 			uid: ["userId"],
 			thumbnail: ["getThumbnail"],
+			username: ["getUsername"],
 		}),
+		getOwner() {
+			let owner = "";
+			if (this.username && this.username !== "") {
+				owner = this.username;
+			} else {
+				owner = this.uid;
+			}
+			return owner;
+		},
 	},
 	methods: {
 		async onFileSelected(event) {
@@ -244,6 +253,7 @@ export default {
 				this.formIsValid = false;
 			}
 		},
+
 		async submitForm() {
 			this.validateForm();
 
@@ -254,6 +264,7 @@ export default {
 			const formData = {
 				// when Profile is ready add authorName
 				uid: this.uid,
+				owner: this.getOwner,
 				date: new Date().toLocaleDateString(),
 				thumbnail: this.thumbnail,
 				title: this.title.val,
